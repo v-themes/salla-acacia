@@ -1,0 +1,49 @@
+name: Build with webpack
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Checkout prod branch
+      run: | 
+        git fetch origin
+        git checkout prod
+
+    - name: Determine committer identity
+      run: |
+        git config --global user.name $user_name
+        git config --global user.email $user_email
+      env:
+        user_name: "github-actions[bot]"
+        user_email: "github-actions[bot]@users.noreply.github.com"
+
+    - name: Merge main into prod
+      run: git merge main --allow-unrelated-histories --strategy-option=theirs
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run prod
+
+    - name: Commit & Push Generated Files
+      run: |
+        git add -A
+        git commit -m "Update build files"
+        git push

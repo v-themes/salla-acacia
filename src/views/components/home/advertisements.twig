@@ -1,0 +1,20 @@
+{#
+| Variable                       | Type    | Description                                                                  |
+|--------------------------------|---------|------------------------------------------------------------------------------|
+| component                      | object  | Contains merchant settings for fields from twilight.json `component` section |
+| component.ads                  | Brand[] | list of selected brands @see views/components/home/advertisments.twig        |
+| position                       | int     | Sorting number start from zero                                               |
+#}
+
+<section class="s-block s-block--advertisments -mb-8 sm:-mb-16">
+    {% for ad in component.ads %}
+        <div class="flex flex-col items-center gap-2 text-center flex-1 shrink-0 py-6 px-3">
+            <h3 class=" whitespace-nowrap text-white/95 text-lg lg:text-xl">{{ad.title}}</h3>
+            {% if ad.desc %}
+                <p class="text-gray-100">{{ad.desc}}</p>
+            {% else %}
+                <a href="{{ad.link}}" target="_blank" class="text-white md:font-semibold">تسـوق الآن</a>    
+            {% endif %}
+        </div>
+    {% endfor %}
+</section>

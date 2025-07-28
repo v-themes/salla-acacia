@@ -1,0 +1,16 @@
+<section class="s-block category-perfumes-section" data-position="{{ position }}" data-id="{{ component.category[0].id }}">
+    <div class="container">
+        <div class="category-perfumes-header text-center px-2 md:px-3 mb-[3rem] md:mb-[3rem]">
+            <h2 class="category-perfumes-title text-[1.4rem] font-medium mb-[1.2rem] text-primary">{{ component.title }}</h2>
+            <p class="category-perfumes-description text-[#707070] px-[1rem] md:px-[2rem] text-[18px] loading-[27px]">{{
+                component.description }}</p>
+        </div>
+        <div class="category-perfumes-row {{ component.is_category_img_on_left ? "flex-row-reverse"}}">
+            <div class="category-perfumes-img-container">
+                <img width="100%" height="100%" alt="category_banner" src="{{'images/s-empty-wide.png' | asset}}" data-src="{{ component.category_img }}" class="lazy" />
+                <span>{{ component.category_name }}</span>
+            </div>
+            <div class="category-perfumes-slider"></div>
+        </div>
+    </div>
+</section>

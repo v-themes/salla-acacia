@@ -1,0 +1,122 @@
+.store-footer {
+  @apply relative mt-12;
+  &__inner {
+    @apply relative bg-dark py-8 lg:py-12 border-b border-dashed border-b-white/10 text-slate-100;
+    .container {
+      .footer-list {
+        a {
+          @apply transition-all duration-200;
+          &:hover {
+            @apply text-primary scale-[1.1] -translate-x-6;
+          }
+        }
+        @media (max-width: 640px) {
+          @apply flex flex-wrap items-center;
+          a {
+            @apply w-[50%];
+          }
+        }
+      }
+    }
+    .toTop {
+      @apply z-[999] fixed left-[-60px] bottom-[35px] w-[50px] h-[50px] rounded-full flex justify-center items-center cursor-pointer transition-all duration-500;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      i {
+        @apply relative w-[calc(100%-10px)] h-[calc(100%-10px)] bg-white rounded-full flex justify-center items-center text-xl font-bold text-slate-800;
+        &:before {
+          @apply transition-all duration-500;
+        }
+      }
+      &:hover {
+        i::before {
+          @apply absolute ready;
+        }
+      }
+
+      &.active {
+        @apply left-[15px];
+      }
+    }
+  }
+  .contact-social {
+    .social-link {
+      i {
+        @apply social-icons text-[#000] bg-primary-reverse;
+        background-image: -webkit-linear-gradient(
+          0,
+          rgba(255, 255, 255, 82%) 75%,
+          rgb(255 255 255 / 82%) 75%
+        );
+      }
+      &:hover {
+        @apply social-icons-animate text-primary;
+      }
+    }
+  }
+  .contact-links {
+    a {
+      @apply transition duration-300 flex items-center mt-[1rem] gap-[1rem] text-slate-900;
+      i {
+        @apply social-icons text-primary;
+        background-color: var(--color-primary-light);
+        background-image: -webkit-linear-gradient(
+          0,
+          rgb(255 255 255 / 53%) 75%,
+          rgb(255 255 255 / 53%) 75%
+        );
+      }
+      .contact-name {
+        @apply transition duration-150 font-normal text-[17px] text-white;
+      }
+      span.text-unicode {
+        @apply inline-block transition duration-150 text-[16px] text-white;
+      }
+      &:hover {
+        @apply social-icons-animate;
+        .contact-name {
+          @apply text-primary;
+        }
+        span.text-unicode {
+          @apply text-primary scale-110;
+        }
+      }
+    }
+  }
+  .copyright {
+    div span p {
+      @apply text-white;
+    }
+  }
+  .footer-is-light & {
+    .store-footer__inner {
+      @apply bg-secondary-color;
+      * {
+        @apply text-[#575F6B];
+      }
+      h3 span {
+        @apply text-primary #{!important};
+      }
+      .contact-links {
+        .contact-name,
+        .text-unicode {
+          @apply text-[#575F6B];
+        }
+        a {
+          &:hover {
+            .text-unicode {
+              @apply text-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+  h3 {
+    @apply mb-[.8rem] text-primary text-[17px] #{!important};
+  }
+  @media (max-width: 640px) {
+    .border-bottom {
+        @apply border-b-[1px] border-[#cccccc42] pb-[21px];
+    }
+  }
+}

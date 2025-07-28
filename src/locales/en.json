@@ -1,0 +1,23 @@
+{
+  "blocks": {
+    "header": {
+      "cart": "Cart"
+    }
+  },
+  "product": {
+    "description": "product description",
+    "tags": "tags",
+    "ratings": "product ratings"
+  },
+  "brand": {
+    "btn_name": "Click here for more brand"
+  },
+  "footer": {
+    "payment": {
+      "title": "available payment methods"
+    },
+    "follow_us": {
+      "title": "follow us"
+    }
+  }
+}

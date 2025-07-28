@@ -1,0 +1,21 @@
+{#
+| Variable    | Type   | Description          |
+|-------------|--------|----------------------|
+| apps        | array  |                      |
+| apps[].name | string | appstore, googleplay |
+| apps[].url  | string |                      |
+#}
+{% if apps|length %}
+  <div class="download-apps-links">
+    <h3 class="text-primary">
+      <span>{{trans('blocks.footer.download_apps')}}</sapn>
+    </h3>
+    <div class="flex justify-center items-center">
+      {% for app in apps %}
+          <a href="{{ app.url }}" rel="noreferrer" target="_blank" class="rtl:ml-4 ltr:mr-4 leading-none hover:text-primary">
+              <img alt="{{ app.name }}" src="{{ ('images/'~ app.name ~'.png') | cdn }}"/>
+          </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

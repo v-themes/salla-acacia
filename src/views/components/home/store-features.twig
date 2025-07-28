@@ -1,0 +1,24 @@
+{#
+| Variable      | Type   | Description                                                      |
+|---------------|--------|------------------------------------------------------------------|
+| items[]       | array  | List of 3 features                                               |
+| items[].icon  | string | SallaIcons css class `sicon-*`                                   |
+| items[].title | string | Title of the feature                                             |
+| items[].text  | string | Subtitle for the feature                                         |
+| position      | Int    | Sorting number start from zero                                   |
+#}
+<section class="s-block s-block--features container">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-0.5">
+      {% for item in items %}
+          <div class="s-block--features__item">
+            <div class="feature-icon">
+              <i class="{{ item.icon }} text-primary-reverse text-2xl md:text-3xl"></i>
+            </div>
+            <div class="cursor-text text-sm lg:flex-1">
+              <h4 class="text-primary-reverse mb-2">{{ item.title }}</h4>
+              <p class="text-white">{{ item.text }}</p>
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+</section>

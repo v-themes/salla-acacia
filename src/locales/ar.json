@@ -1,0 +1,23 @@
+{
+  "blocks": {
+    "header": {
+      "cart": "السلة"
+    }
+  },
+  "product": {
+    "description": "وصف المنتج",
+    "tags": "الوسوم",
+    "ratings": "تقيمات المنتج"
+  },
+  "brand": {
+    "btn_name": "اضغط هنا للمزيد من ماركة"
+  },
+  "footer": {
+    "payment": {
+      "title": "وسائل الدفع المتاحة"
+    },
+    "follow_us": {
+      "title": "تابعنا"
+    }
+  }
+}

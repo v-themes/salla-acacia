@@ -1,0 +1,28 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|----------|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.slides[].image | string | Image url |
+| component.slides[].title | ?string | |
+| component.slides[].description | ?string | |
+| component.slides | object[] | list of slides |
+| position | int | Sorting number start from zero |
+#}
+<section class="s-block home-slider s-block--hero-slider s-block--full-bg wide-placeholder">
+    <salla-slider id="main-slider-{{ position }}" class="home-slider main-slider" loop pagination type="fullwidth">
+        <div slot="items">
+            {% for slide in component.slides %}
+            <div class="swiper-lazy-wrap w-full min-h-[300px] lg:min-h-[528px] bg-dark">
+                <div data-background="{{ slide.image }}" class="swiper-lazy"></div>
+                <div class="h-full mx-6 lg:mx-14 flex flex-col justify-center items-center sm:items-start text-center sm:text-start text-white max-w-[500px]">
+                    <p data-swiper-parallax="-300" class="line-clamp-2 text-sm md:text-base font-semibold">{{ slide.description }}</p>
+                    <h3 data-swiper-parallax="-500" class="my-6 sm:my-10 text-xl sm:text-3xl md:text-5xl font-extrabold md:leading-14">{{ slide.title }}</h3>
+                    {% if slide.url %}
+                    <a data-swiper-parallax="-500" href="{{ slide.url }}" target="_blank" class="btns-style-main w-fit">{{slide.link}}</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </salla-slider>
+</section>

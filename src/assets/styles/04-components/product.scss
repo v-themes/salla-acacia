@@ -1,0 +1,997 @@
+// Custom product card
+.s-product-card-entry.custom-card {
+  flex-direction: column;
+  justify-content: unset;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1.5px solid var(--color-primary);
+
+  .card-image {
+    @apply sm:h-[17rem] #{!important};
+    @apply h-[12.5rem] xs:h-[14.5rem] max-h-[18rem] p-2 border-b border-primary;
+
+    .salla-counter {
+      @apply h-6 px-2 absolute bottom-2 ltr:right-2 rtl:left-2 z-1 bg-red-500;
+      .s-count-down-list {
+        @apply gap-2.5;
+        .s-count-down-item {
+          width: unset !important;
+          @apply text-white flex-1 font-medium;
+          &::after {
+            @apply -left-2 text-inherit font-semibold;
+          }
+          &-value {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .s-count-down-list,
+  .s-count-down-item {
+    margin: unset !important;
+  }
+  @media (min-width: 640px) {
+    .s-count-down-list {
+      padding: unset;
+    }
+  }
+  .s-count-down-item {
+    height: unset !important;
+  }
+
+  .card-content {
+    @apply flex-1 flex flex-col items-center justify-between text-center gap-3 p-2.5;
+
+    .actions {
+      @apply w-full flex items-center gap-1 justify-center;
+      .add-to-cart salla-button {
+        .s-button-btn {
+          @apply p-0 h-[33px] w-[100%] bg-primary text-white hover:bg-white hover:text-primary border border-primary transition-all duration-200;
+          .s-button-text {
+            overflow: initial;
+            @apply flex justify-evenly w-full h-full text-base font-medium;
+
+            .add-to-cart-icon {
+              width: 40px;
+              height: 42px;
+              path {
+                stroke: var(--color-primary);
+              }
+            }
+          }
+          &:hover {
+            .s-button-text {
+              .add-to-cart-icon {
+                animation: wiggle 1.4s linear forwards;
+                path {
+                  stroke: #f3f3f3;
+                  fill: var(--color-primary);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .add-to-compare {
+        @apply h-[33px] px-1 border-2 border-solid border-primary rounded-[5px] transition-all duration-200;
+        &:hover {
+          svg path {
+            opacity: 1;
+          }
+        }
+        svg path {
+          opacity: 0.85;
+          fill: var(--color-primary);
+        }
+      }
+
+      salla-button.btn--wishlist:not(.is-added) {
+        .s-button-wrap svg {
+          width: 1.1rem;
+          height: 1.1rem;
+        }
+        margin-right: 0 !important;
+        .s-button-icon {
+          width: 2rem !important;
+        }
+        .s-button-text {
+          @apply justify-center h-[33px] w-full border-2 border-solid border-primary rounded-[5px] pl-[1px];
+        }
+        &:not(.is-added) {
+          svg {
+            fill: var(--color-primary);
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+
+  &.h-card {
+    flex-direction: row;
+    max-height: 215px;
+    min-height: 205px;
+    .card-image {
+      height: 100% !important;
+      @apply w-[45%] sm:w-1/2 border-b-0 rtl:border-l ltr:border-r;
+      .salla-counter {
+        @apply rtl:right-2 ltr:left-2 bottom-2;
+      }
+    }
+    .card-content {
+      @apply w-[55%] sm:w-1/2;
+    }
+  }
+
+  &.full-image {
+    @apply border-none shadow-lg;
+
+    .card-image {
+      @apply border-b-0 p-0 h-full max-h-[unset] flex-1;
+
+      .promo-title {
+        @apply rtl:right-0 ltr:left-0 py-1.5;
+      }
+    }
+
+    .card-content {
+      flex-grow: unset;
+      text-align: unset;
+      @apply pt-5 px-4;
+
+      .actions {
+        max-width: 460px;
+      }
+    }
+  }
+
+  &.is-out {
+    .card-image {
+      a,
+      .promo-title {
+        @apply grayscale;
+      }
+    }
+  }
+}
+
+.s-comments {
+  &-page {
+    @apply pt-16;
+  }
+
+  &-product {
+    @apply bg-gray-100 mb-4 md:mb-14 py-4 md:py-14;
+
+    .s-comments-container {
+      @apply container;
+    }
+  }
+}
+
+// share list
+.share-btns-list {
+  @apply absolute z-10 overflow-hidden opacity-0 top-12 bg-white flex items-center flex-col shadow-huge rounded-3xl;
+
+  a {
+    @apply block p-3 hover:text-primary;
+  }
+}
+
+// Customize cart item
+.cart-item {
+  salla-conditional-fields > section {
+    @apply px-0 pt-0 last:mb-0 last:pb-0;
+  }
+
+  .product-img {
+    @apply w-[100px] h-[160px] sm:w-[130px];
+
+    img {
+      @apply w-full h-full;
+    }
+  }
+
+  salla-quantity-input.cart-quantity {
+    .s-quantity-input-container {
+      @apply h-8 xs:h-9 relative w-[45px] xs:w-[55px] border border-gray-100 rounded-none;
+      @apply before:content-[""] before:absolute before:h-full before:w-[1px] before:right-4 before:bg-gray-100;
+
+      button:first-child {
+        @apply absolute top-1 right-[4px];
+      }
+      button:last-child {
+        @apply absolute bottom-[1px] right-[4px];
+      }
+      button {
+        @apply w-auto;
+        svg {
+          @apply w-[10px] h-[10px] fill-slate-800 mx-0 hover:fill-primary transition-all duration-200;
+        }
+      }
+      input {
+        @apply w-full pr-5 text-base font-medium outline-primary;
+      }
+    }
+  }
+
+  .btn--delete {
+    @apply delete-btn;
+  }
+
+  .product-options {
+    salla-conditional-fields {
+      @apply flex flex-col items-start sm:flex-row sm:justify-start sm:items-center sm:gap-8 mt-2;
+    }
+    salla-conditional-fields > div {
+      @apply w-full m-0 bg-transparent;
+    }
+    @apply flex justify-between sm:gap-3;
+    .s-product-options-wrapper {
+      @apply p-0 mb-0 border-none;
+    }
+    .s-product-options-option {
+      @apply flex gap-2 sm:gap-4;
+
+      &-content {
+        @apply flex-1 max-w-[170px];
+      }
+    }
+  }
+
+  .quantity-price-wrapper {
+    display: flex;
+    gap: 8px;
+  }
+
+  .product-options {
+    select {
+      @apply text-xs md:text-sm;
+      background-position: 0;
+      padding-right: 0.25rem;
+    }
+    b {
+      @apply text-xs md:text-sm;
+    }
+  }
+  .details-price-wrapper h3 {
+    @apply p-2-line;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .product-info-wrapper {
+      align-items: flex-start;
+
+      .details-price-wrapper {
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .quantity-price-wrapper {
+        flex-direction: column-reverse;
+
+        @media screen and (max-width: 767px) {
+          .total-price {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+  .product-options > div > section {
+    display: none;
+  }
+}
+
+button.btn--coupon {
+  @apply main-btn-reverse;
+}
+
+.cart-submit-wrap {
+  button {
+    @apply main-btn-reverse;
+  }
+}
+
+// Digital Rating(SVG)---------------------------
+.pie-wrapper {
+  @apply w-[96px] h-[96px] relative text-primary flex items-center justify-center;
+  // top-2.5 rtl: left-5 ltr:right-5
+  .pie-svg {
+    circle {
+      transition: stroke-dashoffset 1s linear;
+      stroke: #f2f6f7;
+      stroke-width: 3px;
+      stroke-linecap: round;
+      fill: none;
+
+      &.circle_bar {
+        stroke: #e73636;
+        stroke-dasharray: 100 100;
+        stroke-dashoffset: 100;
+      }
+    }
+  }
+
+  span {
+    display: block;
+    font-size: var(--font-xsm);
+    // color: var(--color-text);
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
+    font-size: var(--font-xsm);
+
+    b {
+      font-size: var(--font-md) !important;
+      margin-bottom: 3px;
+      color: var(--color-primary);
+    }
+  }
+}
+
+/* Add to cart sticky bar */
+@media (max-width: 640px) {
+  .is-sticky-product-bar {
+    // &.product-single {
+    //   @apply pb-16;
+    // }
+
+    .sticky-product-bar {
+      @apply flex fixed z-[2] bottom-0 left-0 p-3 w-full justify-between items-center shadow-[-1px_-2px_9px_0_rgba(0,0,0,0.05)] transition duration-700 delay-500 translate-y-100 opacity-0 ease-elastic;
+
+      &__quantity,
+      salla-add-product-button {
+        @apply translate-y-5 opacity-0 transition duration-700 ease-elastic;
+      }
+
+      &__price,
+      .form-label {
+        @apply hidden;
+      }
+
+      &__quantity {
+        @apply m-0 delay-[900ms];
+      }
+
+      salla-add-product-button {
+        @apply w-auto m-0 flex-1 rtl:mr-5 ltr:ml-5 delay-1000;
+      }
+
+      .hydrated & {
+        &,
+        &__quantity,
+        salla-add-product-button {
+          @apply translate-y-0 opacity-100;
+        }
+      }
+    }
+  }
+}
+
+// Tabs fix
+.s-tabs-header * {
+  pointer-events: auto !important;
+}
+.product__description ul,
+.product__description li {
+  list-style: inherit !important;
+}
+.product__description ol {
+  list-style: auto !important;
+}
+
+// 3d Image Viewer ------------------------------
+.model-viewer-wrapper {
+  @apply relative mb-4 md:mb-0 w-full;
+}
+
+.switcher-3d-view {
+  @apply absolute top-5 rtl:left-4 ltr:right-4;
+
+  // .has-calories-badge &{
+  //   @apply top-auto bottom-5;
+  // }
+}
+
+.model-viewer {
+  @apply w-full h-full;
+
+  &__poster {
+    @apply absolute inset-0 bg-contain bg-no-repeat bg-center;
+  }
+}
+
+.s-toggle .s-toggle-switcher-has-text:before {
+  @apply content-[attr(data-switcher-text)] font-bold text-center text-gray-400 text-xs leading-[22px];
+  font-family: arial, serif;
+}
+
+.s-toggle .s-toggle-input:checked + div.s-toggle-switcher-bg-white:before {
+  @apply text-gray-600 border-white bg-white;
+}
+
+// product options file upload component
+.product-option-uploader {
+  .s-file-upload-wrapper {
+    min-height: 120px;
+    .filepond--list-scroller {
+      overflow-y: inherit !important;
+    }
+    .filepond--drop-label {
+      min-height: 120px !important;
+      @apply bg-white cursor-pointer border-dashed rounded-md border border-gray-200;
+    }
+    .product-option-uploader-placholder {
+      @apply flex flex-col justify-center items-center;
+      &-icon {
+        @apply mb-1;
+        i {
+          color: #7c8082;
+          @apply text-xl;
+        }
+      }
+    }
+  }
+}
+
+.product-entry .hydrated button {
+  @apply bg-transparent border-none;
+
+  .sicon-cart2 {
+    @apply text-xl text-gray-600;
+  }
+}
+
+.sidebar .fav-btn,
+salla-modal .fav-btn {
+  @apply absolute top-0 left-6 z-10;
+
+  button {
+    @apply bg-white rounded-full h-[45px] w-[45px] flex justify-center items-center transition-colors duration-300 hover:text-white hover:bg-primary;
+
+    span {
+      @apply text-xl;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .sidebar {
+    @apply sticky top-[100px];
+  }
+
+  @media screen and (max-width: 1254px) {
+    .options-wrapper {
+      @apply flex-col #{!important};
+    }
+  }
+}
+
+.promotion-title {
+  &.single-product-promotion-title {
+    color: rgba(255, 255, 255, var(--tw-text-opacity)) !important;
+    background-color: rgb(231 54 54) !important;
+    padding: 0 0.375rem !important;
+    height: 1.35rem;
+    border-radius: 3px 0 0 3px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    -ms-border-radius: 3px 0 0 3px;
+    -o-border-radius: 3px 0 0 3px;
+    display: flex;
+    align-items: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 11px;
+      left: 10px;
+      z-index: -1;
+      height: 0px;
+      width: 0px;
+      border: 8px solid;
+      border-color: transparent transparent transparent rgb(231 54 54);
+    }
+  }
+}
+
+salla-slider.product-slider {
+  .s-slider-container {
+    @apply max-h-[550px] p-0;
+  }
+
+  .s-slider-thumbs-container {
+    @apply pl-[5rem];
+  }
+}
+div {
+  @media (min-width: 991px) {
+    &.zoom {
+      background-position: 50% 50%;
+      background-size: 180%;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      cursor: crosshair;
+      img {
+        &:hover {
+          opacity: 0;
+        }
+        transition: opacity 0.5s;
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.product-share {
+  .share {
+    @apply px-3 relative text-white font-semibold mr-4 overflow-hidden;
+    background-color: rgb(231 54 54);
+
+    &::before {
+      @apply absolute content-[""] w-0 h-0 -top-[7px] right-[12px] rotate-90;
+      border-style: solid;
+      border-width: 0 9px 9px;
+      border-color: transparent transparent transparent rgb(231 54 54);
+    }
+  }
+  salla-social-share {
+    @apply block #{!important};
+    .s-social-share-wrapper {
+      slot-fb {
+        @apply hidden;
+      }
+      .s-social-share-list {
+        @apply px-0 mr-0 static border-none opacity-100 h-auto flex-row shadow-none bg-transparent;
+
+        li:hover {
+          svg {
+            @apply rubberBand;
+          }
+        }
+      }
+    }
+  }
+}
+
+salla-quantity-input.product-quantity {
+  .s-quantity-input-container {
+    @apply h-11 relative w-[75px] border border-gray-100 rounded-none;
+    @apply before:content-[""] before:absolute before:h-full before:w-[1px] before:right-5 before:bg-gray-100;
+
+    button:first-child {
+      @apply absolute top-1 right-[5px];
+    }
+    button:last-child {
+      @apply absolute bottom-0 right-[5px];
+    }
+    button {
+      svg {
+        @apply w-[12px] h-[12px] fill-slate-800 mx-0 hover:fill-primary transition-all duration-200;
+      }
+    }
+    input {
+      @apply w-full h-full pr-5 text-lg;
+    }
+  }
+}
+
+salla-add-product-button.add-btn {
+  button.s-button-wide {
+    @apply btns-style-main font-medium py-[10px] #{!important};
+    @media (max-width: 374px) {
+      min-width: 50%;
+    }
+    span {
+      @apply text-[17px];
+    }
+  }
+  button.s-quick-buy-button {
+    @apply text-center bg-white text-primary hover:bg-primary hover:text-white #{!important};
+    span {
+      @apply justify-center items-center;
+    }
+    @media (max-width: 374px) {
+      min-width: 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  salla-add-product-button.add-btn {
+    width: 100% !important;
+
+    salla-button,
+    salla-quick-buy {
+      @apply flex-1 #{!important};
+
+      // button.s-button-wide {
+      //   @apply px-2;
+      // }
+    }
+  }
+}
+
+// product modal
+salla-modal.product-details {
+  .s-modal-wrapper {
+    @apply no-scrollbar w-[90%] mx-auto md:w-full bottom-0 h-[95%] md:h-auto;
+  }
+  .s-modal-body {
+    @apply overflow-y-auto no-scrollbar w-[95%] static mt-5;
+    .s-modal-header {
+      @apply hidden;
+    }
+
+    .main-content {
+      .product__description {
+        > p:nth-child(2) {
+          @apply truncate;
+        }
+      }
+    }
+  }
+
+  .modal-footer {
+    @apply flex gap-4 items-center px-4;
+
+    salla-button.close-modal-btn {
+      button.close-modal-btn {
+        @apply main-btn w-[150px] h-[2.75rem] rounded-none border border-primary bg-transparent text-primary;
+      }
+    }
+  }
+}
+
+// offer modal
+salla-modal.s-offer-modal-type-categories {
+  .s-modal-body {
+    .s-modal-header {
+      .s-modal-header-inner {
+        @apply flex flex-col sm:flex-row gap-3 p-3;
+
+        .s-modal-header-content {
+          @apply text-center sm:text-right gap-2 sm:gap-0;
+        }
+      }
+    }
+
+    .s-offer-modal-footer {
+      .s-offer-modal-expiry {
+        @apply text-red-500;
+      }
+    }
+
+    .swiper {
+      @apply pl-0 pr-0;
+      .swiper-wrapper {
+        @apply pr-2 sm:p-0 sm:justify-center gap-3;
+        a {
+          @apply light-shadow;
+
+          .s-offer-modal-badge-icon {
+            svg {
+              @apply mb-0;
+            }
+            @apply w-14 h-14 border border-gray-300 rounded-full mb-3 flex items-center justify-center;
+          }
+
+          .s-offer-modal-badge-text {
+            @apply text-slate-800 text-base;
+          }
+
+          &:hover {
+            @apply main-shadow;
+            .s-offer-modal-badge-icon {
+              svg {
+                @apply bounce;
+              }
+            }
+            .s-offer-modal-badge-text {
+              @apply pulse text-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Login modal
+salla-modal.s-login-modal {
+  .s-modal-header-inner {
+    @apply flex flex-col justify-center gap-2 items-center px-4;
+    .s-login-modal-header-icon {
+      svg {
+        @apply w-6 h-6;
+      }
+    }
+  }
+  .s-login-modal-tab {
+    p {
+      @apply text-sm font-semibold text-slate-700;
+    }
+    .s-login-modal-main-btn {
+      @apply p-4;
+      .s-login-modal-main-btn-icon {
+        @apply w-14 h-14;
+        svg {
+          @apply w-6 h-6;
+        }
+      }
+      &:hover {
+        .s-login-modal-main-btn-icon svg {
+          @apply bounce;
+        }
+      }
+      .s-login-modal-main-btn-arrow {
+        @apply w-6 h-6 flex items-center justify-center bg-gray-50 border border-gray-200 rounded-full transition-all duration-300;
+
+        svg {
+          @apply transition-all duration-300;
+        }
+
+        &:hover {
+          @apply bg-primary border-primary;
+
+          svg {
+            @apply fill-white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.product__description {
+  p {
+    @apply truncate;
+  }
+}
+
+.cart-summary {
+  .btn--coupon {
+    color: #fff !important;
+
+    &:hover {
+      @apply text-primary #{!important};
+    }
+  }
+
+  .proceed-to-checkout-btn {
+    color: #fff !important;
+
+    &:hover {
+      @apply text-primary #{!important};
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .add-to-card-content {
+    @apply w-[41px];
+    .add-to-cart {
+      .hydrated {
+        @apply block h-[30px];
+        button {
+          @apply w-[41px] h-[30px];
+          .s-button-text {
+            @apply w-full;
+          }
+          span {
+            @apply hidden;
+          }
+          .add-to-cart-icon {
+            @apply left-[initial] h-[38px] #{!important};
+          }
+        }
+      }
+    }
+  }
+  // .btn-action {
+  //   @apply justify-center gap-[.5rem];
+  // }
+}
+
+// Adcordion
+.acordion {
+  .content-wrapper {
+    @apply my-5 px-5 h-auto;
+    .content {
+      @apply hidden;
+      &-active {
+        @apply block;
+      }
+      &.description {
+        P {
+          @apply text-base text-[#44444D] font-semibold leading-7;
+          span {
+            @apply text-[#44444D] #{!important};
+          }
+        }
+        ul {
+          @apply pr-8 pt-2;
+          list-style: inherit;
+          ::marker {
+            @apply text-[#787878];
+          }
+          li,
+          ol {
+            @apply text-[#787878];
+            list-style: inherit;
+          }
+        }
+      }
+      &.tags.content-active {
+        @apply flex items-center gap-5 flex-wrap;
+        a {
+          @apply py-1.5 px-4 bg-gray-200 text-slate-900 text-sm font-semibold rounded-2xl transition-all duration-200 hover:bg-primary hover:text-white;
+        }
+      }
+    }
+  }
+  .tabs {
+    @apply flex items-center gap-8 border-b pb-2 border-[#D9D9D9] px-4;
+
+    .tab-item {
+      @apply font-semibold text-[#898989] text-base lg:text-lg tracking-wider cursor-pointer relative;
+
+      &.active {
+        @apply text-black;
+
+        &::before {
+          @apply absolute content-[''] -bottom-[8px] w-full bg-black h-[1.5px];
+        }
+      }
+    }
+  }
+}
+
+.mini-desc {
+  @apply overflow-hidden leading-[2em];
+  max-height: calc(2em * 2 - 4px); /* Limit to 2 lines of text */
+  P {
+    @apply leading-[2em] text-sm text-[#787878] font-normal;
+    max-height: calc(2em * 2); /* Limit to 2 lines of text */
+    span {
+      @apply text-[#787878] #{!important};
+    }
+  }
+  ul {
+    @apply pr-8 -mt-2;
+    list-style: inherit;
+    ::marker {
+      @apply text-[#787878];
+    }
+    li,
+    ol {
+      @apply text-[#787878];
+      span {
+        @apply overflow-hidden leading-[2em];
+        max-height: calc(2em * 1); /* Limit to 2 lines of text */
+      }
+      list-style: inherit;
+    }
+  }
+}
+
+.main-content {
+  .countdown-single {
+    @apply py-3 xs:pl-[70px] xs:pr-3;
+    .s-count-down-list {
+      flex-direction: row-reverse;
+    }
+    [dir='rtl'] & {
+      @apply xs:pr-[70px] xs:pl-3;
+    }
+    width: fit-content;
+    margin: 24px 0;
+    font-size: 18px;
+    color: rgb(231, 54, 54);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 47px;
+    position: relative;
+    line-height: 26px;
+    box-shadow: 0 3px 180px 0 rgba(0, 0, 0, 0.1);
+
+    .icon {
+      @apply rtl:left-auto rtl:right-0;
+      position: absolute;
+      width: 60px;
+      height: 100%;
+      left: 0;
+      top: 0;
+      align-items: center;
+      justify-content: center;
+      background: #f11e1e;
+      svg {
+        height: 40px;
+        animation: hourglass 1s linear infinite;
+        .outer {
+          fill: #f11e1e;
+        }
+        .middle {
+          fill: #fff;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 639px) {
+  .product-entry--vertical .product-entry__image a {
+    height: 12rem !important;
+  }
+  .product-entry__image a img {
+    object-fit: contain !important;
+  }
+}
+
+// Product card
+.product-entry {
+  @apply h-full transition-shadow duration-300 bg-white hover:shadow-default rounded-lg justify-between flex relative;
+
+  &__image {
+    @apply bg-gray-100 relative overflow-hidden hover:opacity-90 w-full h-full shrink-0;
+
+    &::before {
+      font-family: 'sallaicons';
+      content: '\ec1f';
+      @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 inline-block text-gray-200 text-3xl;
+    }
+
+    img {
+      @apply transition-opacity duration-500 opacity-0;
+
+      &.loaded {
+        @apply opacity-100 relative;
+      }
+    }
+  }
+
+  .out-of-stock &__image img {
+    @apply grayscale;
+  }
+
+  &__title a {
+    @apply block text-sm font-bold text-gray-800 hover:text-primary;
+
+    .product-entry--horizontal & {
+      @apply line-clamp-2;
+    }
+  }
+
+  .s-block--special-products .tabs__item & {
+    @apply self-start h-full;
+  }
+
+  &--wishlist {
+    @apply justify-between p-4 flex-col sm:flex-row;
+
+    .product-entry__image {
+      @apply overflow-hidden w-20 h-20 md:w-24 md:h-24 rounded-md;
+    }
+
+    .s-button-danger {
+      @apply bg-red-400 hover:bg-red-500 #{!important};
+    }
+    .s-button-primary-outline:hover {
+      fill: none !important;
+      opacity: 0.75;
+      color: var(--color-primary) !important;
+    }
+    salla-button {
+      @apply flex;
+    }
+  }
+}

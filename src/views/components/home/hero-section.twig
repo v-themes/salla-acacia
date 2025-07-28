@@ -1,0 +1,46 @@
+{#
+| Variable | Type | Description |
+|--------------------------------|----------|------------------------------------------------------------------------------|
+| component | object | Contains merchant settings for fields from twilight.json `component` section |
+| component.slides[].image | string | Image url |
+| component.slides[].title | ?string | |
+| component.slides[].description | ?string | |
+| component.slides | object[] | list of slides |
+| position | int | Sorting number start from zero |
+#}
+
+<section class="s-block-hero-section">
+    <salla-slider show-controls="false" pagination type="fullwidth" id="slider-with-bg-{{ position }}">
+        <div slot="items">
+            {% for banner in component.banners %}
+            <div class="swiper-lazy-wrap w-full">
+                <img width="100%" height="100%" src="{{'images/s-empty-wide.png' | asset}}" data-src="{{ banner.image }}" class="w-full h-[100vh] object-cover lazy" alt="landing-banner">
+                <div class="container ">
+                    <div
+                        class="slide-header absolute top-[.3rem] right-[0] md:right-[initial] md:top-[1rem] md:w-[25rem] w-full text-center rtl:md:text-right ltr:text-left px-[.5rem] md:px-[0]">
+                        <h1 data-swiper-parallax="-500" class="slide-header_title text-[2rem] sm:text-[2.2rem] text-[#3D3D3D] pt-[2rem] md:pt-[6rem]">
+                            {{ banner.title }}
+                        </h1>
+                        <p data-swiper-parallax="-600"
+                            class="slide-header_description text-[1rem] sm:text-[1.2rem] text-[#707070] pt-[1rem] leading-snug">
+                            {{banner.description }}
+                        </p>
+                    </div>
+                    <div class="slide-details absolute block right-[0] left-[0] bottom-[4.3rem]"
+                        data-swiper-parallax="-800">
+                        <p class=" text-center text-[1.4rem] sm:text-[1.7rem] text-[#3D3D3D] font-semibold" data-swiper-parallax="-500">
+                            {{ banner.details }}
+                        </p>
+                        {% if banner.url_title %}
+                        <a href="{{banner.link}}" target="_blank" class="slide-link block text-center mt-[1.5rem]">
+                            <span class="bg-primary text-white text-[19px] p-[0.5rem] rounded-[7px] w-[180px] inline-block border border-primary 
+                            transition ease-in duration-300 hover:text-primary hover:bg-white">{{ banner.url_title }}</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </salla-slider>
+</section>

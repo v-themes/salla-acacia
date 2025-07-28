@@ -1,0 +1,16 @@
+<section class="s-block categories-perfumes">
+    <div class="container">
+        <h2 class="categories-perfumes_title">{{ component.category_title }}</h2>
+        <p class="categories-perfumes_description">{{ component.category_description }}</p>
+        <salla-slider type="carousel" block-title="" display-all-url="{{component.display_all_url}}"
+            id="slider-with-bg-{{ position }}">
+            <div slot="items">
+                <div class="slide--one-fourth">
+                    {% for product in categories.products %}
+                        {% include 'pages.partials.product.card' %}
+                    {% endfor %}
+                </div>
+            </div>
+        </salla-slider>
+    </div>
+</section>

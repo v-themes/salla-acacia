@@ -1,0 +1,124 @@
+<footer class="store-footer">
+    <div aria-label="footer" class="store-footer__inner">
+        <div class="mb-[2rem] text-center">
+            <a class="inline-block" href="{{ store.url }}">
+                <img width="100%" height="100%" src="{{ store.logo }}" alt="{{ store.name }}" class="max-h-[4rem] w-[8rem] md:max-h-[5.5rem] m-auto object-contain">
+            </a>
+        </div>
+        <div class="container">
+            <div class="flex flex-row flex-wrap sm:flex-nowrap gap-4 lg:gap-0">
+                <div class="about-us border-bottom basis-full sm:basis-2/4 lg:basis-2/3">
+                    <div class="about-us-content">
+                        <a href="{{ link('/') }}" class="flex items-center m-0">
+                            <h3 class="text-primary">{{store.name}}</h3>
+                        </a>
+                        {% if store.description %}
+                        <p class="max-w-sm leading-6 text-[16px]">{{ store.description|raw }}</p>
+                        {% endif %}
+                    </div>
+                    {% component 'footer.contacts' %}
+                </div>
+                <div class="important-links border-bottom basis-full sm:basis-1/5 lg:basis-1/4 sm:text-center lg:text-right">
+                    <div class="flex flex-col justify-between h-full">
+                        {% component 'footer.menu' %}
+                        <div>
+                            {% if store.social.maroof %}
+                                <div class="maroof-logo mb-4">
+                                    <a href="{{ store.social.maroof }}" class="block mx-auto lg:mx-0 mt-3 w-[130px] h-[60px]" target="_blank" rel="noreferrer">
+                                        <img class="w-full h-full lazy object-contain"
+                                            src="{{ 'images/s-empty.png' | asset }}"
+                                            data-src="{{ 'images/maroof-footer.png' | cdn }}" alt="maroof">
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {# vat #}
+                            {% if store.settings.tax.number %}
+                                <div class="flex justify-center md:justify-normal items-center gap-1.5 lg:relative lg:-right-[3.1rem]">
+                                    {% if store.settings.tax.certificate %}
+                                    <a onclick="document.querySelector('#modal-value-tax').open(); event.preventDefault();"
+                                        href="#/" alt="{{ store.settings.tax.number }}">
+                                        <img src="{{ 'images/s-empty.png' | asset }}" 
+                                            data-src="{{'images/tax.png' | cdn}}"
+                                            class="lazy w-10 rounded-sm hover:opacity-80 transition-opacity" alt="value added tax">
+                                    </a>
+                                    {% endif %}
+                                    <div class="flex flex-col gap-1.5">
+                                        <p class="text-sm whitespace-nowrap">{{ trans('common.elements.tax_number') }} </p>
+                                        <b class="text-sm whitespace-nowrap">{{ store.settings.tax.number }}</b>
+                                    </div>
+                                </div>
+                                {% if store.settings.tax.certificate %}
+                                    <salla-modal sub-title-first sub-title="{{ trans('common.elements.tax_number') }}"
+                                        modal-title="{{ store.settings.tax.number }}" id="modal-value-tax">
+                                        <div class="flex justify-center max-w-full max-h-[500px]">
+                                            <img class="w-full object-contain" loading="lazy" src="{{ store.settings.tax.certificate }}"
+                                                alt="{{ store.settings.tax.number }}" />
+                                        </div>
+                                    </salla-modal>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="follow-us basis-full sm:basis-2/4 lg:basis-1/2 text-center">
+                    <div class="flex flex-col justify-between h-full gap-4 sm:gap-0">
+                        <div class="contact-social">
+                            <h3 class="text-primary">{{trans('footer.follow_us.title')}}</h3>
+                            {% component 'footer.social' %}
+                        </div>
+                        {% component 'footer.mobile-apps' %}
+                        {% component 'footer.payment-methods' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="toTop">
+            <i class="sicon-arrow-up"></i>
+        </div>
+    </div>
+
+    <div class="copyright bg-primary py-4">
+        <div class="container text-center">
+            <span class="block text-base text-white">{% hook copyright %}</span>
+        </div>
+    </div>
+    <span class="hidden bottom-2 rtl:pl-24 ltr:pr-24"></span>
+</footer>
+
+{# Move to top #}
+{% block scripts %}
+<script>
+    const toTopBtn = document.querySelector(".toTop");
+
+    function throttleScrollEvent(func, delay) {
+        let lastCallTime = 0;
+        return function () {
+            const currentTime = Date.now();
+            if (currentTime - lastCallTime >= delay) {
+                lastCallTime = currentTime;
+                func.apply(this, arguments);
+            }
+        }
+    }
+
+    window.onscroll = throttleScrollEvent(() => {
+        toTopBtn.classList.toggle("active", this.scrollY >= 300);
+
+        let pos = document.documentElement.scrollTop,
+            scrollHeight = document.documentElement.scrollHeight,
+            clientHeight = document.documentElement.clientHeight,
+            calcHeight = scrollHeight - clientHeight;
+
+        let scrollValue = Math.round((pos * 100) / calcHeight);
+
+        toTopBtn.style.background = `conic-gradient(var(--color-primary) ${scrollValue}%, var(--color-primary-reverse) ${scrollValue}%)`
+    }, 100);
+
+    toTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    })
+</script
+{% endblock %}

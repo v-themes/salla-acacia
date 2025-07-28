@@ -1,0 +1,13 @@
+{#
+| Variable    | Type    | Description                                                      |
+|-------------|---------|------------------------------------------------------------------|
+| url         | string  |                                                                  |
+| image.url   | string  |                                                                  |
+| image.alt   | ?string |                                                                  |
+| position    | Int     | Sorting number start from zero                                   |
+#}
+<section class="s-block s-block--fixed-banner first-of-type:mt-0">
+    <a href="{{ url }}" class="overflow-hidden" aria-label="Banner {{ image.alt }}">
+        <img width="100%" height="100%" class="lazy" src="{{'images/s-empty-wide.png' | asset}}" data-src="{{ image.url }}" alt="banner - {{ image.alt }}"/>
+    </a>        
+</section>

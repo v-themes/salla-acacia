@@ -1,0 +1,40 @@
+{#
+| Variable | Type | Description |
+|-------------------------------|-----------|---------------------------------------------------------------------|
+| items | array | |
+| items[].title | string | Section title |
+| items[].name | string | Alias for title |
+| items[].type | string | category,most_sales,latest_products,chosen_products |
+| items[].featured_product | Product | |
+| items[].special_product.id | string | Product string id |
+| items[].special_product.title | string | Product Name |
+| items[].products[] | Product[] | |
+| items[].limit | Int | Number of products to be shown |
+| items[].id | string | Section id |
+| position | int | Sorting number starts from zero |
+#}
+<section class="s-block s-block--features-products {% if items | length > 1 %}two-cols{% endif %} container">
+    <div class="inner">
+        {% for section in items %}
+        <div>
+            <div class="mb-[1.5rem]">
+                <h2 class="main-style-title inline-block">{{ section.title }}</h2>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+                {% if section.featured_product %}
+                    <custom-salla-product-card product="{{section.featured_product}}" special="true"></custom-salla-product-card>
+                <div class="grid gap-3">
+                    {% for product in section.products|slice(0,3) %}
+                        <custom-salla-product-card horizontal="true" product="{{product}}"></custom-salla-product-card>
+                    {% endfor %}
+                </div>
+                {% else %}
+                    {% for product in section.products %}
+                        <custom-salla-product-card horizontal="true" product="{{product}}"></custom-salla-product-card>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>

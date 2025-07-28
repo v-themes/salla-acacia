@@ -1,0 +1,115 @@
+{#
+| Variable | Type | Description |
+|------------------|---------|---------------------------------|
+| cart | object | |
+| cart.items_count | int | |
+| cart.total | string | Formatted total ex: "١٠٠ ر.س" |
+#}
+<header class="store-header relative">
+    {# Main Nav #}
+    <div id="mainnav" class="main-nav-container shadow-default bg-white !h-auto">
+        <div class="inner bg-inherit py-3">
+            <div class="navbar-brand-content">
+                <a class="navbar-brand" href="{{ store.url }}">
+                    <img fetchpriority="high" width="100%" height="100%" loading="eager" src="{{ store.logo }}" alt="{{ store.name }}">
+                    {% if is_page('index') %}
+                    <h1 class="sr-only">{{ store.name }}</h1>
+                    {% else %}
+                    <h2 class="sr-only">{{ store.name }}</h2>
+                    {% endif %}
+                </a>
+            </div>
+            <div class="container">
+                <div class="flex justify-between items-center self-end lg:self-auto w-full md:pt-3 md:pb-3 -mb-1 md:-mb-2 lg:mb-0">
+                    <div class="flex flex-row-reverse lg:flex-row items-center gap-1 sm:gap-2">
+                        <div class="contact-tel">
+                            {% component 'footer.contacts' with {is_header:true} %}
+                        </div>
+                        <span class="block sm:mx-1.5 text-[21px]">|</span>
+                        <div class="header-buttons flex items-center justify-between lg:justify-center sm:gap-2 lg:gap-0">
+                            {# Language & Currency Component #}
+                            {% if store.settings.is_multilingual or store.settings.currencies_enabled %}
+                            <salla-localization-modal></salla-localization-modal>
+                            <button type="button" onclick="salla.event.dispatch('localization::open')" class="btn--rounded-gray basis-0 gap-[10px]">
+                                <span class="block flag iti__flag iti__{{ user.language.country_code }} rounded-sm"></span>
+                                <span>{{ currency.symbol }}</span>
+                            </button>
+                            {% endif %}
+                        </div>
+                        {# menu icon #}
+                        <a class="lg:hidden mburger mburger--collapse leading-none block ml-[10px]" href="#mobile-menu">
+                            <i class="sicon-menu text-primary text-2xl"></i>
+                        </a>
+                    </div>
+                    {# nav-links #}
+                    {% component 'header.menu' %}
+                    <div class="flex items-center gap-1">
+                        {# user #}
+                        {% if user.type=='user' %}
+                        <salla-user-menu avatar-only show-header class="avatar-icon"></salla-user-menu>
+                        {% else %}
+                        <button class="header-btn" onclick="salla.event.dispatch('login::open')">
+                            <div class="login-icon">
+                                <i class=" sicon-user text-2xl"></i>
+                            </div>
+                        </button>
+                        {% endif %}
+                        {# Cart #}
+                        <salla-cart-summary>
+                            <i class="sicon-cart2"></i>
+                        </salla-cart-summary>
+                        {# Search #}
+                        <div class="header-search">
+                            <i class="sicon-search"></i>
+                            <div class="overlay">
+                                <div class="cancel-icon">
+                                    <i class="sicon-cancel"></i>
+                                </div>
+                                <div class="search-bar flex">
+                                    <button class="voice-search-btn flex justify-center items-center py-2 px-4 cursor-pointer">
+                                        <i class="sicon-mic-alt"></i>
+                                    </button>
+                                    <salla-search inline oval height="36" class="flex-1"></salla-search>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% if store.scope %}
+<salla-scopes selection="{{ store.scope.display_as == 'popup' ? 'mandatory' : 'optional' }}"></salla-scopes>
+{% endif %}
+
+{% block scripts %}
+<script>
+    const overlay = document.querySelector(".overlay"),
+        searchIcon = document.querySelector(".sicon-search");
+
+    searchIcon.addEventListener("click", () => {
+        overlay.classList.add("show")
+        document.body.style.overflow = "hidden"
+    })
+
+    document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("overlay") || e.target.classList.contains("cancel-icon")) {
+            overlay.classList.remove("show")
+            document.body.style.overflow = "auto"
+        }
+    })
+
+    let navLinks = document.querySelectorAll('#mobile-menu li a');
+    const activeLink = () => {
+        let urlCurrentPage = window.location.href;
+        navLinks.forEach(link => {
+            if (link.href == urlCurrentPage) {
+                link.classList.add('active');
+            }
+        })
+    }
+    window.addEventListener('load', activeLink)
+</script
+{% endblock %}

@@ -1,0 +1,43 @@
+<section class="s-block categories-section">
+    <div class="container">
+        <div class="categories-row flex justify-center md:justify-between items-stretch gap-[12px] flex-wrap mt-[16px]">
+            <salla-slider
+                class="w-[100%]"
+                show-controls="false"
+                type="default"
+                pagination 
+                id="slider-with-bg-{{ position }}"
+                sliderConfig={
+                    slidesPerView: 1,
+                    breakpoints: {
+                        481: {
+                            slidesPerView: 2,
+                        },
+                        841: {
+                            slidesPerView: 3,
+                        }
+                    }
+                }
+            >
+                <div slot="items">
+                    {% for category in component.categories %}
+                    <div class="categories-col">
+                        <a href="#" class="categories-col-container block framed-category-card h-[100%]"
+                            data-id="{{ category.category_item.value[0] }}"
+                        >
+                            <div class="categories-col-title">
+                                <h2 class="text-wrapper"></h2>
+                                <span class="colored-bg"></span>
+                            </div>
+                            <div class="img-frame"></div>
+                            <div class="categories-col-img-container">
+                                <img alt="category_image" src="{{ category.category_image }}" class="w-full h-full object-cover"/>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </salla-slider>
+        </div>
+    </div>
+</section>

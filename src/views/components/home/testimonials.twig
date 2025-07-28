@@ -1,0 +1,62 @@
+{#
+| Variable | Type | Description |
+|--------------------|---------------------------|-------------------------------------|
+| limit | string | Maximum number of the testimonials |
+| items[] | Testimonial[] *Paginator | |
+| items[].id | int | |
+| items[].avatar | string | |
+| items[].name | string | |
+| items[].has_order | bool | |
+| items[].created_at | Date *Carbon | |
+| items[].stars | int | |
+| items[].content | string | |
+| type | string | `default:store` all, product, store |
+| position | string | Sorting number start from zero |
+#}
+
+<section class="s-block s-block--testimonials container overflow-hidden">
+    <div class="lg:overflow-hidden text-center">
+        <h2 class="text-2xl font-medium text-primary">{{ trans('blocks.home.testimonials') }}</h2>
+        <salla-slider type="carousel" id="slider-with-bg-{{ position }}" class="testimonials-slider">
+            <div slot="items">
+                {% for item in items %}
+                <div class="slide--one-third">
+                    <div class="testimonial relative">
+                        <div class="testimonial__inner z-[3] w-[100%]">
+                            <div class="testimonial__avatar">
+                                <img src="{{ 'images/s-empty.png' | asset }}" data-src="{{ item.avatar }}" alt="{{ item.name }}" class="lazy w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1 testimonial__text text-center pt-[20px]">
+                                <p class="leading-6 min-h-[100px] pb-[10px] text-[#575F6B]">{{ item.text }}</p>
+                                <div class="">
+                                    <div class="testimonial__rating text-sm mt-[10px]">
+                                        <salla-rating-stars size="small" value="{{ item.stars }}"></salla-rating-stars>
+                                    </div>
+                                    <div class="testimonial__info mt-[28px]">
+                                        <h4 class="font-bold text-[16px]">{{ item.name }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <i class="testimonial__icon sicon-quote-open"></i>
+                        </div>
+                        <svg class="bg-secondary-color absolute inset-0 rounded-[8px]" width="100%" height="100%"  viewBox="0 0 335 331" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask0_2031_720" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="335" height="331">
+                                <rect width="335" height="331" rx="10" fill="#FFECEC" />
+                            </mask>
+                            <g mask="url(#mask0_2031_720)">
+                                <circle cx="65.5" cy="152.5" r="42.7656" stroke="white" stroke-opacity="0.3" stroke-width="5.46875" />
+                                <circle cx="65.4998" cy="152.5" r="32.1562" stroke="white" stroke-opacity="0.3" stroke-width="5.25" />
+                                <circle cx="294" cy="23" r="72.3726" stroke="white" stroke-opacity="0.3" stroke-width="9.25481" />
+                                <circle cx="294" cy="23" r="54.4183" stroke="white" stroke-opacity="0.3" stroke-width="8.88462" />
+                                <circle cx="288" cy="314" r="72.3726" stroke="white" stroke-opacity="0.3" stroke-width="9.25481" />
+                                <circle cx="288" cy="314" r="54.4183" stroke="white" stroke-opacity="0.3" stroke-width="8.88462" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </salla-slider>
+        </div>
+    </div>
+</section>

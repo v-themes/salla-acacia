@@ -1,0 +1,273 @@
+.main-nav-container {
+  // contacs menu items - pages menu items
+  a.topnav-link-item {
+    @apply transition duration-200 font-medium text-[#323232] leading-[0];
+    i {
+      @apply text-[18px]
+    }
+    &:hover {
+      @apply rubberBand text-primary;
+    }
+  }
+  // Search Customization
+  .header-search {
+    @apply flex items-center justify-center w-fit self-end h-[2.25rem] w-[2.25rem];
+    .sicon-search {
+      @apply block cursor-pointer text-[20px] text-[#323232] transition-all duration-300;
+
+      &:hover {
+        @apply rubberBand text-primary;
+      }
+    }
+  }
+  .search-bar {
+    overflow: hidden;
+
+    .voice-search-btn {
+      transition-duration: 0.12s;
+      &.is-recording {
+        background-color: #323232;
+        color: #ffffff;
+      }
+    }
+
+    .s-search-container input {
+      border-radius: 0 !important;
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      -ms-border-radius: 0 !important;
+      -o-border-radius: 0 !important;
+    }
+  }
+  .overlay {
+    @apply opacity-0 pointer-events-none transition duration-500 w-screen h-screen fixed left-0 top-0 flex items-start justify-center z-[999] bg-black/50;
+    backdrop-filter: blur(4px);
+    .cancel-icon {
+      @apply absolute top-[48px] sm:top-[55px] right-[16px] sm:right-[50px] bg-gray-200 text-2xl font-extrabold cursor-pointer z-50 h-[35px] w-[35px] flex justify-center items-center transition-all duration-300 text-dark rounded-[7px] hover:bg-red-200 hover:text-white hover:text-rose-700 hover:rotate-90 hover:scale-[1.05];
+    }
+
+    .search-bar {
+      @apply transition duration-500 w-[96%] md:w-[800px] bg-white rounded-md -translate-y-[4rem];
+
+      .s-search-container {
+        input {
+          @apply w-full border-0 placeholder:text-dark placeholder:text-[15px] pr-12 text-[15px] outline-none rounded-md h-[55px] #{!important};
+          box-shadow: 0 0px 1px 0 #000000a6;
+        }
+
+        .s-search-icon-wrap {
+          @apply absolute top-[27px];
+
+          .s-search-icon svg {
+            @apply h-[1.2rem] w-[1.2rem] fill-primary ml-4;
+          }
+        }
+        .s-search-results {
+          @apply static max-h-[280px] w-full overflow-y-auto rounded-b-md bg-white;
+          &::-webkit-scrollbar {
+            @apply w-[6px];
+          }
+          &::-webkit-scrollbar-track {
+            @apply bg-gray-200 rounded-3xl;
+          }
+          &::-webkit-scrollbar-thumb {
+            @apply bg-primary rounded-3xl;
+          }
+
+          .s-search-product {
+            @apply items-center bg-[var(--color-light-grey)] p-2 m-2 md:m-4 rounded-md;
+          }
+          .s-search-product-price {
+            @apply flex-row-reverse text-[#00AC30] text-base sm:text-[16px] justify-end;
+          }
+          .s-search-product-regular-price {
+            @apply text-[15px];
+          }
+        }
+      }
+    }
+
+    &.show {
+      @apply opacity-100 pointer-events-auto;
+      .search-bar {
+        @apply translate-y-[7rem];
+      }
+    }
+  }
+  .header-buttons {
+    @apply text-2xl;
+    button {
+      @apply bg-transparent p-0;
+      span:last-child {
+        @apply hidden lg:block text-[15px] font-semibold;
+      }
+    }
+    span {
+      @apply text-lg;
+    }
+  }
+}
+
+/* Main Nav */
+.main-nav-container {
+  // Custom background Color
+  .has-bg &,
+  .has-bg & .sub-menu {
+    @apply bg-[color:var(--mainnav-bg)];
+  }
+
+  // Custom text color
+  .has-text-color & {
+    @apply text-[color:var(--mainnav-text-color)];
+  }
+
+  // Dark mode
+  .is-dark & {
+    @apply bg-gray-800 text-gray-300;
+    .dropdown-toggler,
+    .dropdown__menu > div p {
+      @apply text-gray-300;
+    }
+    .sub-menu,
+    .dropdown__menu {
+      @apply bg-gray-800 border-gray-300/10;
+    }
+    .sub-menu li a:hover,
+    .dropdown__menu li a:hover,
+    .menu-item.is-active,
+    .has-children li a:hover,
+    .has-children .has-children:hover > a {
+      @apply bg-gray-200/10;
+    }
+    .dropdown__menu > div {
+      @apply border-gray-300/10;
+    }
+  }
+}
+
+.menu-item {
+  @apply flex items-center px-6 py-2.5 sm:text-sm text-gray-500 transition-colors duration-300 hover:bg-gray-200/30;
+  &.logout {
+    @apply text-red-400;
+  }
+  &.is-active {
+    @apply text-primary bg-gray-200/20;
+  }
+}
+
+/* Sticky Header */
+.main-nav-container {
+  .navbar-brand-content {
+    @apply block text-center pb-[4px] mb-[10px] lg:mb-[0] border-b-2 border-gray-200;
+    .navbar-brand {
+      @apply inline-block;
+      img {
+        @apply max-h-[4rem] w-[8rem] md:max-h-[5.5rem] object-contain;
+      }
+    }
+  }
+  &.fixed-pinned {
+    .navbar-brand-content {
+      @apply hidden;
+    }
+    .inner {
+      @apply fixed top-0 right-0 left-0 w-full fadeInDown z-30;
+      box-shadow: 0 -3px 15px -3px var(--color-primary);
+    }
+  }
+}
+
+// Customize login icon
+.header-btn {
+  @apply border-none;
+
+  .login-icon {
+    @apply w-9 h-9 flex justify-center items-center rounded-full transition-all duration-200;
+    i {
+      @apply block text-[20px] text-[#323232] transition-all duration-300;
+    }
+    &:hover {
+      i {
+        transform: perspective(300px) rotateY(180deg) scale(1.12);
+        @apply text-primary;
+      }
+    }
+  }
+}
+
+salla-user-menu {
+  @apply shrink-0;
+  .s-user-menu-dropdown {
+    ul li:not(:last-child) a {
+      .s-user-menu-dropdown-item-title {
+        @apply transition-all duration-200;
+      }
+      .s-user-menu-dropdown-item-badge {
+        @apply bg-primary text-white border border-primary transition-all duration-200 font-bold;
+      }
+      &:hover {
+        .s-user-menu-dropdown-item-title {
+          @apply text-primary font-bold opacity-100;
+        }
+        i {
+          @apply rubberBand;
+        }
+      }
+    }
+  }
+}
+
+salla-user-menu.avatar-icon {
+  .s-user-menu-trigger {
+    @apply p-0 rtl:ml-[.8rem] ltr:mr-[.8rem];
+    .s-user-menu-avatar-wrap {
+      img {
+        @apply w-[1.3rem] h-[1.3rem];
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--color-primary);
+      }
+      &::after {
+        @apply top-[-4px] right-[-5px] bg-primary;
+      }
+    }
+  }
+}
+
+// Customize cart summary
+.s-cart-summary-wrapper {
+  @apply block;
+  #s-cart-icon {
+    .s-cart-summary-icon {
+      @apply block w-[34px];
+      svg {
+        @apply fill-[#323232] w-11 transition-all duration-300;
+      }
+    }
+    &:hover {
+      svg {
+        @apply fill-primary wiggle;
+      }
+      & + .s-cart-summary-count {
+        @apply bg-primary text-white;
+      }
+    }
+  }
+  .s-cart-summary-total {
+    @apply text-primary font-[600] sm:text-lg whitespace-nowrap;
+  }
+  .s-cart-summary-count {
+    @apply w-5 h-5 leading-5 items-center p-0 -top-[8px] ltr:-left-1.5 rtl:right-0 bg-white text-primary border-2 border-primary transition-all duration-300;
+  }
+  .s-cart-summary-content {
+    @apply hidden;
+  }
+}
+
+#nav-cart {
+  @apply flex items-center rtl:mr-4 ltr:ml-4 relative whitespace-nowrap;
+  .icon {
+    @apply rtl:ml-2 ltr:mr-2;
+  }
+  span {
+    @apply absolute top-1 rtl:-right-2 ltr:-left-2;
+  }
+}

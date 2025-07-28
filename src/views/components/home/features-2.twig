@@ -1,0 +1,45 @@
+<section class="s-block features-2-section bg-white py-8 sm:py-12">
+    <div class="container">
+        <div class="text-center px-2 md:px-3 mb-[2rem] md:mb-[3rem]">
+            <span class="features-2-main-title text-primary inline-block mb-[.6rem] text-[20px]">{{ component.main_title }}</span>
+            <h2 class="text-[1.4rem] font-medium mb-[1.5rem] text-[#323232]">{{ component.sub_title }}</h2>
+            <p class="text-[#707070] px-[1rem] md:px-[2rem] text-[18px] loading-[27px]">{{ component.description }}</p>
+        </div>
+        <div class="features-2-row mt-[16px]">
+            <salla-slider
+                show-controls="false"
+                type="default"
+                pagination 
+                id="slider-with-bg-{{ position }}"
+                sliderConfig={
+                    slidesPerView: 1,
+                    breakpoints: {
+                        481: {
+                            slidesPerView: 2,
+                        },
+                        841: {
+                            slidesPerView: 3,
+                        },
+                        1041: {
+                            slidesPerView: 4,
+                        }
+                    }
+                }
+            >
+                <div slot="items">
+                    {% for feature in component.features %}
+                    <div class="features-2-col swiper-slide swiper-lazy-wrap">
+                        <div class="features-2-col-container text-center flex flex-col gap-[14px] p-[14px] rounded-[14px]" style="--color: {{ feature.feature_color }};">
+                            <p class="features-2-col-title text-[1.3rem] mb-[6px] pt-[1rem]">{{ feature.feature_title }}</p>
+                            <p class="features-2-col-description text-[#707070] text-[17px] loading-[27px]">{{ feature.feature_description }}</p>
+                            <div class="features-2-col-img-container pt-[1rem] w-full">
+                                <img alt="{{ feature.feature_title }}" src="{{ feature.feature_img }}" class="w-full h-full object-cover rounded-[14px]"/>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </salla-slider>
+        </div>
+    </div>
+</section>

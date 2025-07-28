@@ -1,0 +1,47 @@
+{#
+| Variable              | Type                  | Description                                                                  |
+|-----------------------|-----------------------|------------------------------------------------------------------------------|
+| component             | object                | Contains merchant settings for fields from twilight.json `component` section |
+| component.background  | string                |                                                                              |
+| component.title       | ?string               |                                                                              |
+| component.description | ?string               |                                                                              |
+| component.products    | Product[] *Collection | @see views/pages/product.twig                                                |
+| position              | int                   | Sorting number start from zero                                               |
+#}
+{% set display_all = component.display_all_url  %}
+{% set slider_config = {
+    'slidesPerView':2,
+    'spaceBetween':8,
+    "autoplay": {"delay":2500},
+    'breakpoints': {
+        '620': {'slidesPerView':3},
+        '768': {'slidesPerView':2},
+    }
+} %}
+
+<section class="s-block s-block--slider-with-bg s-block--full-bg">
+    <div class="slider-bg" style="background-image: url('{{ component.background }}');"></div>
+
+    <div class="container flex gap-3 -mt-28 min-h-[340px]">
+        <div class="hidden mt-44 md:w-[45%] lg:w-[55%] md:flex flex-col text-center items-center gap-4 rtl:pl-[calc((100vw-1300px)/2)] z-10">
+            <h3 class="text-2xl lg:text-5xl font-semibold line-clamp-1 text-primary">
+                {{ component.title }}
+            </h3>
+            <p class="text-base leading-7 line-clamp-3 text-slate-800 px-5">
+                {{ component.description }}
+            </p>
+            {% if display_all != '' and  display_all != '#' %}
+                <a href="{{ display_all }}" class="btns-style-main mt-4">{{ trans('blocks.home.display_all') }}</a>
+            {% endif %}
+        </div>
+        
+        <salla-products-slider
+            class="w-full md:w-[55%] lg:w-[45%]" 
+            source="selected"
+            slider-config={{ slider_config|json_encode }}
+            source-value="[{{ component.products|map((product) => product.id)|join(',') }}]" 
+            slider-id="slider-with-bg-{{ position }}"
+        ></salla-products-slider>
+    </div>
+</section>
+ 

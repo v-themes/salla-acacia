@@ -1,0 +1,974 @@
+// Hide Nav, alert salla, theme bar
+.s-maintenance-alert-wrapper,
+#s-theme_edit_bar {
+  display: none !important;
+}
+
+.s-block {
+  // Add virtical bullets
+  &--hero-slider,
+  &--photos-slider {
+    .s-slider-container {
+      @apply p-0 max-h-[530px] #{!important};
+
+      .swiper-slide {
+        @apply p-0 rounded-none #{!important};
+      }
+    }
+    .swiper-pagination {
+      @apply w-fit flex flex-col justify-center gap-2 sm:gap-4 h-full top-0 right-[92%] sm:right-[97%] #{!important};
+
+      &-bullet {
+        @apply w-[10px] h-[10px] rounded-full bg-white opacity-100 transition-all duration-300 #{!important};
+        &-active {
+          box-shadow: 0px 0px 9px 4px var(--color-primary);
+          @apply bg-primary #{!important};
+        }
+      }
+    }
+  }
+
+  &--hero-slider {
+    .swiper-lazy-wrap {
+      .swiper-lazy::after {
+        @apply bg-black/40;
+      }
+    }
+  }
+
+  &__title {
+    @apply center-between;
+
+    .right-side {
+      // @apply rtl:pl-8 ltr:pr-8;
+    }
+
+    h2 {
+      @apply text-lg font-bold relative leading-[1.2];
+    }
+
+    p {
+      @apply text-sm opacity-60 mt-2 line-clamp-1 sm:line-clamp-2 rtl:md:pl-16 ltr:md:pr-16;
+    }
+
+    &-nav {
+      @apply hidden sm:flex ltr:flex-row-reverse rtl:space-x-reverse space-x-2.5 rtl:mr-6 ltr:ml-6;
+    }
+  }
+
+  &--advertisments {
+    @apply flex flex-wrap bg-primary;
+
+    > div {
+      @apply xs:min-w-[370px];
+    }
+    > div:first-child {
+      @apply bg-[#3a3a3a];
+    }
+
+    > div:nth-child(2) {
+      @apply bg-[#e73636];
+    }
+
+    > div:nth-child(3) {
+      @apply bg-[#3a3a3a];
+    }
+  }
+
+  .s-block__title {
+    @apply mb-[1.5rem];
+    .s-block__display-all {
+      @apply main-btn font-normal border py-1 px-4 flex items-center rounded-[7px] border-primary relative;
+
+      i {
+        @apply hidden;
+      }
+    }
+  }
+
+  &__display-all {
+    @apply inline-block text-primary font-medium;
+  }
+}
+
+/*
+  Main slider
+*/
+.s-block--hero-slider {
+  .swiper-slide {
+    @apply h-80 sm:h-96 lg:h-116 xl:h-132 relative bg-gray-800;
+
+    .swiper-lazy {
+      &:after {
+        @apply content-[''] absolute transition top-0 bg-black/60 w-full h-full;
+      }
+    }
+  }
+}
+
+/* Banner Block */
+.banner {
+  @media screen and (min-width: 768px) {
+    &:hover {
+      .banner__title {
+        animation: toTopFromBottom 0.9s;
+      }
+
+      .banner__description {
+        animation: delayKeyframe 0.3s, toTopFromBottom 0.9s 0.3s;
+      }
+    }
+  }
+
+  &--fixed {
+    img {
+      @apply w-full object-cover border-none block bg-gray-100;
+
+      &:not(.loaded) {
+        @apply h-28 sm:h-48;
+      }
+    }
+  }
+}
+
+.has-overlay {
+  &:after {
+    @apply content-[''] h-full w-full bg-black/60 absolute top-0 left-0 transition-colors duration-300;
+  }
+
+  &.with-hover {
+    &:after {
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+    &:hover {
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &:hover:after {
+    @apply bg-black/70;
+  }
+}
+
+/* Full banner block */
+.full-banner-entry {
+  @apply row-span-2 h-80 md:h-96 lg:h-116 xl:h-132 bg-stone-200 transition-opacity hover:opacity-95 bg-center bg-cover text-white text-center p-5 overflow-hidden relative bg-fixed;
+  background-size: auto;
+  background-repeat: no-repeat;
+  &::after,
+  &::before {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: -93%;
+    content: '';
+    background: var(--color-primary);
+    position: absolute;
+    transition: all 0.3s ease-in-out;
+    transform: rotate(220deg) translateY(-50%) translateX(33%);
+    opacity: 0.25;
+  }
+
+  &::before {
+    background: #fff;
+    right: auto;
+    transform: rotate(220deg) translateY(-40%) translateX(0);
+
+    [dir='ltr'] & {
+      left: -52%;
+    }
+  }
+
+  @media (max-width: 1330px) {
+    &::after {
+      top: -50%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &::before {
+      top: 20%;
+    }
+
+    &::after {
+      top: -80%;
+    }
+  }
+}
+
+/*
+  Tabs Block
+*/
+.tabs-wrapper {
+  .tabs__item {
+    @apply hidden transition-all duration-300;
+
+    &.is-active {
+      @apply block;
+    }
+  }
+}
+
+.s-block--tabs-produtcs {
+  .tabs {
+    @apply text-center gap-2 sm:gap-3 pb-6 px-[1rem] py-[.5rem] whitespace-nowrap overflow-x-auto;
+    &.hide-scroll {
+      salla-button button {
+        @apply rounded-none border-0 p-0 py-[5px] mx-3 transition-all duration-300;
+        // text-base lg:text-[17px] font-medium
+      }
+      .s-button-primary-outline {
+        @apply bg-transparent #{!important};
+      }
+      salla-button:not(.is-active) button {
+        @apply bg-transparent text-dark hover:text-primary;
+      }
+      salla-button.is-active button {
+        @apply text-primary border-t-[1px] border-b-[1px] border-primary taps-border;
+        animation: bounceIn 1.3s linear forwards;
+      }
+    }
+  }
+}
+
+.s-block--special-products {
+  .tabs {
+    @apply px-[1rem] py-[.5rem] rtl:space-x-reverse space-x-2 md:space-x-8 whitespace-nowrap overflow-x-auto;
+    &__item {
+      @apply flex-1 gap-2.5 sm:gap-8;
+      &.is-active {
+        display: grid;
+      }
+    }
+  }
+  .tab-trigger {
+    @apply text-dark leading-7 hover:text-primary;
+    &.is-active button {
+      @apply relative text-primary taps-border border-t-[1px] border-b-[1px] border-primary;
+      animation: bounceIn 1.3s linear forwards;
+    }
+  }
+}
+
+.s-block--tabs-produtcs,
+.s-block--special-products {
+  &:not(.tabs-initialized) {
+    .tabs-wrapper > div:not(:first-child) {
+      display: none;
+    }
+  }
+}
+
+/* feature products*/
+.s-block--features-products {
+  &.two-cols {
+    .inner {
+      display: grid;
+      @apply lg:grid-cols-2 gap-5;
+    }
+  }
+}
+
+/* slider with bg block */
+.s-block--slider-with-bg {
+  @apply pb-12 sm:pb-14 mt-8 sm:mt-16 first-of-type:mt-0;
+
+  .slider-bg {
+    @apply h-96 sm:h-116 bg-center bg-cover relative;
+
+    &:before {
+      @apply content-[''] h-full w-full bg-black/20 absolute top-0 left-0;
+    }
+  }
+
+  .s-products-slider-wrapper {
+    overflow: unset !important;
+  }
+
+  .s-slider-nav-arrow svg {
+    @apply fill-black/70;
+  }
+
+  .s-slider-v-centered .s-slider-block__title-nav {
+    width: unset;
+    bottom: -4.2rem;
+    top: unset;
+    left: 3rem;
+
+    button.swiper-button-disabled {
+      border: 1px solid #ccc;
+    }
+  }
+  .s-slider-block__title .s-slider-block__title-nav {
+    display: flex !important;
+  }
+}
+
+/*
+  Main Links Block
+*/
+.slide--cat-entry {
+  @apply bg-white rounded-md h-36 p-3 text-center flex flex-col items-center justify-center text-gray-400 transition duration-500 hover:shadow-default hover:text-gray-500 border border-gray-100;
+
+  i {
+    @apply inline-block text-primary text-2xl mb-4;
+  }
+
+  h4 {
+    @apply font-bold text-sm;
+  }
+}
+
+/*
+  offers slider
+*/
+.slide--offer-entry {
+  @apply bg-white rounded-md h-36 text-center flex flex-col items-center justify-between text-gray-600 transition duration-500 hover:shadow-default border border-gray-200;
+}
+
+.s-block {
+  @apply mt-[3rem];
+
+  .s-slider-block__title-right,
+  .right-side {
+    h2 {
+      @apply main-style-title;
+    }
+  }
+
+  .right-side h2 {
+    // @apply pl-[2rem];
+  }
+
+  &--full-bg {
+    + footer,
+    + .s-block--full-bg,
+    &:first-of-type {
+      @apply mt-0;
+    }
+
+    + .merge-with-top-component {
+      @apply -mt-28 md:-mt-32 z-1;
+
+      .s-slider-block__title {
+        color: #fff !important;
+        @apply text-center sm:text-start sm:mb-4;
+      }
+    }
+
+    + .merged-has-no-title {
+      @apply -mt-16 md:-mt-[74px];
+
+      .s-slider-block__title {
+        @apply sm:mb-0;
+      }
+    }
+  }
+
+  &--categories {
+    @apply relative overflow-hidden;
+
+    &__title {
+      @apply font-bold text-base sm:text-lg sm:mb-4 relative z-1 min-h-[28px];
+    }
+    .s-slider-block__title {
+      @apply justify-center;
+      .s-slider-block__title-right {
+        @apply p-0;
+        h2 {
+          @apply text-[1.4rem] font-medium mb-[1.2rem] p-0;
+        }
+      }
+    }
+    .swiper-wrapper {
+      @apply md:justify-around;
+      > div a {
+        @apply transition-all duration-300;
+
+        i {
+          @apply transition duration-300 w-[55px] h-[55px] border-2 border-primary rounded-full flex items-center justify-center text-[#000];
+          background-color: var(--color-primary-light);
+        }
+
+        h4 {
+          @apply text-base sm:text-lg transition duration-300 text-[#323232];
+        }
+
+        &:hover {
+          @apply text-primary border border-primary;
+          i {
+            @apply scale-110;
+          }
+          h4 {
+            @apply scale-105 text-primary;
+          }
+        }
+      }
+    }
+  }
+
+  &--features {
+    &__item {
+      @apply bg-primary text-white flex gap-x-6 items-center justify-start md:justify-center p-6 lg:py-8;
+
+      &:first-child {
+        @apply sm:col-span-2 lg:col-span-1 sm:justify-center;
+      }
+
+      .feature-icon {
+        @apply flex items-center justify-center;
+      }
+
+      .feature-icon i {
+        @apply transition-all duration-300;
+      }
+
+      &:hover {
+        .feature-icon i {
+          @apply bounce;
+        }
+      }
+    }
+  }
+
+  // Customize square photos section
+  &--banners {
+    .banner-entry {
+      @apply p-[12px] cursor-pointer bg-white rounded-sm relative;
+      .banner-img {
+        @apply h-[220px] overflow-hidden;
+        .lazy__bg {
+          @apply static transition-all duration-500;
+        }
+      }
+      &:hover {
+        box-shadow: 0 0 11.83px 1.17px rgba(0, 0, 0, 0.06);
+        .lazy__bg {
+          @apply scale-110;
+        }
+      }
+      a {
+        @apply block;
+        h3 {
+          @apply text-dark font-bold text-[15px] leading-[24px] p-[9px] pb-0 text-center;
+        }
+      }
+      &:hover {
+        h3 {
+          @apply text-primary;
+        }
+      }
+      &.h-lg-banner,
+      &.h-banner {
+        @apply h-[250px] flex flex-col items-center justify-end overflow-hidden;
+        a {
+          @apply transition duration-300 w-full block text-center z-1 p-3 rounded-sm;
+          backdrop-filter: blur(8px);
+          h3 {
+            @apply mb-3;
+          }
+          * {
+            @apply text-white;
+          }
+        }
+        &:hover a {
+          transform: scale(1.08);
+        }
+        &.has-overlay:after {
+          background-color: rgb(0 0 0 / 27%);
+        }
+      }
+    }
+  }
+
+  // Customize shop-by-gender
+  &--shop-by-gender {
+    .wrapper {
+      @apply pt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-3 gap-3 sm:gap-4 md:gap-6;
+
+      :last-child {
+        @apply sm:col-span-2;
+      }
+    }
+    .gender-item {
+      @apply flex flex-col;
+
+      a {
+        @apply overflow-hidden main-shadow;
+
+        img {
+          @apply w-full object-cover h-[200px] max-h-[200px] md:h-[370px] md:max-h-[370px] transition-all duration-700;
+        }
+      }
+
+      h4 {
+        @apply text-center text-lg text-[#323232] p-3 transition-all duration-300;
+      }
+
+      &:hover {
+        img {
+          @apply zoom-in;
+        }
+        h4 {
+          @apply text-primary pulse;
+        }
+      }
+    }
+  }
+}
+
+// Similar products {
+#similar-slider {
+  .s-slider-block__title-right {
+    h2 {
+      @apply main-style-title;
+    }
+  }
+}
+.s-slider-block__title-right .s-block__title,
+.s-slider-block__title {
+  a {
+    @apply main-btn border py-[7px] px-[18px] flex items-center border-primary relative
+     text-[16px] rounded-[7px] font-normal;
+  }
+
+  a i {
+    @apply mr-2;
+  }
+
+  .s-slider-block__title-nav {
+    @apply hidden;
+  }
+}
+
+// Landing banner
+section.landing-banner {
+  @apply p-0 m-0 relative;
+  .container {
+    @apply p-0 m-0 max-w-none;
+
+    a {
+      @apply block md:h-[calc(100vh-140px)] lg:h-[calc(100vh-128px)];
+      img {
+        @apply h-full max-h-full rounded-none;
+      }
+    }
+  }
+}
+
+.s-count-down-boxed .s-count-down-item {
+  @apply border-2 border-primary bg-white;
+  // background-color: var(--color-primary-light);
+}
+// .s-count-down-dark .s-count-down-item {
+// }
+.s-count-down-item {
+  height: 4rem;
+  width: 4rem;
+  .s-count-down-item-value {
+    @apply text-primary;
+  }
+  .s-count-down-item-label {
+    @apply text-dark opacity-100;
+  }
+}
+.s-count-down-list {
+  padding: 0;
+  margin: 0;
+}
+
+// repeated block with narrow top spacing
+.s-block--features + .s-block--features,
+.s-block--fixed-banner + .s-block--fixed-banner,
+.s-block--banners + .s-block--banners {
+  margin-top: 2em;
+}
+
+.s-block--tabs-produtcs + .s-block--tabs-produtcs {
+  padding-top: 2em;
+}
+
+.features-2-section {
+  .features-2-row {
+    .s-slider-container {
+      padding-bottom: 36px !important;
+    }
+
+    .features-2-col {
+      width: calc(100% / 4);
+      padding: 0 8px;
+
+      .features-2-col-container {
+        background-color: var(--color);
+
+        .features-2-col-img-container {
+          aspect-ratio: 225/170;
+          overflow: hidden;
+        }
+      }
+    }
+
+    @media screen and (max-width: 1040px) {
+      .features-2-col {
+        width: calc(100% / 3);
+      }
+    }
+
+    @media screen and (max-width: 840px) {
+      .features-2-col {
+        width: calc(100% / 2);
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .features-2-col {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.category-perfumes-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+
+  .category-perfumes-row {
+    @apply flex gap-[16px] mt-[18px] w-full items-stretch;
+    .category-perfumes-img-container {
+      width: calc((100% / 3) * 1 - (16px / 2));
+      aspect-ratio: 400/350;
+      position: relative;
+      img {
+        @apply w-full h-full object-cover;
+        @apply pb-0 md:pb-[2.3rem];
+      }
+      span {
+        @apply absolute bottom-0 md:bottom-[2.5rem] left-[50%] p-[12px] bg-[#00000033] text-white min-w-[140px] -translate-y-[50%] -translate-x-[50%];
+      }
+    }
+    .category-perfumes-slider {
+      width: calc((100% / 3) * 2 - (16px / 2));
+      .s-slider-wrapper {
+        @apply w-full;
+        .s-slider-container {
+          @apply pt-0 pb-[36px];
+          .swiper-wrapper {
+            @apply w-full;
+          }
+          .category-perfumes-product {
+            width: calc(100% / 3) !important;
+            @apply h-auto items-stretch px-[0.625rem] bg-[#0000];
+            salla-product-card {
+              border: 1px solid var(--color-primary-light);
+              .s-product-card-vertical {
+                @apply rounded-none;
+              }
+            }
+            .s-product-card-fit-height .s-product-card-image {
+              height: auto;
+              max-height: none;
+              flex: none;
+            }
+            .s-product-card-image {
+              @apply bg-[#0000];
+              border-bottom: 1px solid var(--color-primary-light);
+              & > a {
+                @apply h-[18rem] block m-[10px] relative;
+              }
+            }
+            .s-product-card-content {
+              padding: 0.75rem 1rem;
+              flex: 1;
+            }
+            .s-product-card-content-sub {
+              @apply justify-center text-[#00AC30];
+            }
+            .s-product-card-content-main {
+              @apply flex flex-col-reverse;
+              p {
+                color: var(--color-primary);
+              }
+              h3 {
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                & a:hover {
+                  color: rgba(31, 41, 55, var(--tw-text-opacity));
+                }
+              }
+            }
+            .s-product-card-sale-price {
+              display: flex;
+              flex-direction: row-reverse;
+              align-items: center;
+              gap: 16px;
+              h4 {
+                color: rgba(0, 172, 48, var(--tw-text-opacity));
+              }
+              span {
+                color: rgba(30, 41, 59, var(--tw-text-opacity));
+              }
+            }
+            .s-product-card-starting-price {
+              @apply justify-center;
+              h4 {
+                color: rgba(0, 172, 48, var(--tw-text-opacity));
+              }
+              p {
+                @apply text-gray-600 hidden;
+              }
+            }
+            salla-add-product-button {
+              button {
+                color: #fff;
+                background-color: var(--color-primary);
+                border-color: var(--color-primary);
+                &:hover {
+                  color: var(--color-primary);
+                  background-color: #fff;
+                }
+              }
+            }
+            .s-product-card-promotion-title {
+              color: rgba(255, 255, 255, var(--tw-text-opacity));
+              background-color: rgb(231 54 54);
+              padding: 0 0.375rem;
+              height: 1.35rem;
+              border-radius: 3px 0 0 3px;
+              -webkit-border-radius: 3px 0 0 3px;
+              -moz-border-radius: 3px 0 0 3px;
+              -ms-border-radius: 3px 0 0 3px;
+              -o-border-radius: 3px 0 0 3px;
+              display: flex;
+              align-items: center;
+              &::before {
+                content: '';
+                position: absolute;
+                top: 11px;
+                left: 10px;
+                z-index: -1;
+                height: 0px;
+                width: 0px;
+                border: 8px solid;
+                border-color: transparent transparent transparent rgb(231 54 54);
+              }
+            }
+          }
+          @media screen and (max-width: 899px) {
+            .category-perfumes-product {
+              width: calc(100% / 2) !important;
+            }
+          }
+          @media screen and (max-width: 399px) {
+            .category-perfumes-product {
+              width: 100% !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .category-perfumes-row {
+      flex-direction: column;
+
+      .category-perfumes-slider {
+        width: 100%;
+      }
+      .category-perfumes-img-container {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.categories-perfumes {
+  &_product-image {
+    @apply relative;
+    img {
+      @apply relative z-10;
+    }
+    svg {
+      @apply absolute top-0 right-0 bottom-0 left-0 z-1;
+      path {
+        @apply fill-primary;
+      }
+    }
+  }
+}
+.banners {
+  margin-top: 4rem;
+  .banners-slides {
+    @apply overflow-x-auto hide-scroll;
+    &__item {
+      &:nth-of-type(2) {
+        @apply md:max-w-[45%];
+      }
+      @apply block min-w-[320px] max-w-[330px] md:max-w-[50%] lg:max-w-[27%];
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .categories-perfumes {
+    .container {
+      height: auto;
+      min-height: 85vh;
+    }
+    &_destails {
+      text-align: center;
+    }
+  }
+  .perfumes-group {
+    &_destails {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+  }
+}
+.s-block-hero-section {
+  .swiper-slide {
+    &:first-of-type {
+      .slide-header_description {
+        @apply inline-block relative;
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          width: 50%;
+          height: 1px;
+          background-color: #707070;
+        }
+      }
+    }
+  }
+  salla-slider {
+    .s-slider-container {
+      @apply pb-0;
+
+      .swiper-pagination {
+        bottom: 13px !important;
+      }
+    }
+  }
+}
+.categories-section {
+  .categories-row {
+    .s-slider-container {
+      padding-bottom: 36px !important;
+    }
+
+    .categories-col {
+      width: calc(100% / 3);
+      aspect-ratio: 379/323;
+      padding: 0px 8px;
+
+      .categories-col-container {
+        background-color: var(--color);
+        position: relative;
+
+        .categories-col-title {
+          @apply absolute bottom-[14px] right-[16px] z-[3];
+          transition-duration: 0.2s;
+
+          .text-wrapper {
+            @apply relative z-2 font-medium text-white px-3 py-1;
+            border: 1px solid #707070;
+          }
+
+          .colored-bg {
+            @apply bg-primary absolute top-[4px] right-[-4px] bottom-[-4px] left-[4px] z-1;
+            transition-duration: 0.2s;
+          }
+        }
+
+        .img-frame {
+          @apply absolute top-0 left-0 bottom-[14px] right-[16px] z-[2];
+          border: 1px solid #707070;
+          box-sizing: border-box;
+          transition-duration: 0.2s;
+        }
+
+        .categories-col-img-container {
+          @apply absolute top-[14px] left-[16px] bottom-0 right-[0px] z-[1];
+          overflow: hidden;
+          transition-duration: 0.2s;
+        }
+
+        &:hover {
+          .categories-col-title {
+            @apply bottom-[7px] right-[8px];
+
+            .colored-bg {
+              @apply top-0 right-0 bottom-0 left-0;
+            }
+          }
+
+          .img-frame {
+            @apply top-[7px] left-[8px] bottom-[7px] right-[8px];
+          }
+
+          .categories-col-img-container {
+            @apply top-[7px] left-[8px] bottom-[7px] right-[8px];
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 840px) {
+      .categories-col {
+        width: calc(100% / 2);
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .categories-col {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.best-offers-section {
+  .s-slider-block__title {
+    gap: 1rem;
+
+    .s-slider-block__title-right {
+      padding-left: 0;
+
+      h2 {
+        padding-left: 0;
+      }
+    }
+
+    .s-slider-block__title-left {
+      a {
+        width: max-content;
+      }
+    }
+  }
+}
+
+// youtub
+.s-block--video {
+  .videoWrapper {
+    > lite-youtube {
+      @apply transition duration-500 bg-contain bg-no-repeat rounded-[7px];
+      .lty-playbtn {
+        @apply w-[100px] h-[100px] bg-contain bg-no-repeat;
+        background-image: url('./images/Icon_play.jpg') !important;
+        @media (max-width: 768px) {
+          @apply w-[60px] h-[60px];
+        }
+      }
+    }
+  }
+}

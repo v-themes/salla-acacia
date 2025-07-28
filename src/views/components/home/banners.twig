@@ -1,0 +1,9 @@
+<div class="banners">
+    <div class="banners-slides flex flex-col md:flex-row md:justify-center md:gap-1">
+        {% for banner in component.banners %}
+            <a href="{{banner.url}}" aria-label="banner-slide">
+                <img width="100%" height="100%" src="{{'images/s-empty-square.png' | asset}}" data-src="{{ banner.image }}" class="slide-img lazy w-full h-[400px] lg:h-[500px] object-cover object-center" alt="banner-slide">
+            </a>
+        {% endfor %}
+    </div>
+</div>
