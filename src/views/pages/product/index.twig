@@ -54,24 +54,13 @@
                 </div>
 
                 {% hook 'product:index.items.start' %}
-
-                {% if products|length %}
-                {% hook 'product:index.items.start' %}
                 <div class="flex min-h-screen">
                     <salla-products-list class="flex-1 min-w-0 overflow-auto "
                         source="{{ page.slug }}"
                         source-value="{{ page.id }}"
-                        {{ filters?'filters-Results':'' }}>
-                    </salla-products-list>
+                        {{ filters ?'filters-Results':'' }}>
+					          </salla-products-list>
                 </div>
-                {% hook 'product:index.items.end' %}
-                {% else %}
-                    <div class="no-content-placeholder">
-                        <i class="sicon-shopping-bag icon"></i>
-                        <p>{{ trans('pages.categories.no_products') }}</p>
-                    </div>
-                {% endif %}
-
                 {% hook 'product:index.items.end' %}
             </div>
         </div>
