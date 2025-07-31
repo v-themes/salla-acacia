@@ -124,7 +124,7 @@
 
                                         <div class="hidden sm:flex items-center justify-center mt-2">
                                             <salla-button type="button" shape="icon" size="small" color="danger" class="btn--delete"
-                                                        onclick="salla.cart.deleteItem({{ item.id }}).then(() => document.querySelector('#item-{{ item.id }}').remove())">
+                                                        onclick="salla.cart.deleteItem('{{ item.id }}').then(() => document.querySelector('#item-{{ item.id }}').remove())">
                                                 <i class="sicon-trash-2"></i>
                                             </salla-button>
                                         </div>
@@ -137,7 +137,7 @@
                                         </div>
                                         <div class="flex items-end mt-4 sm:mt-0 sm:items-center justify-center sm:hidden mb-2">
                                             <salla-button type="button" shape="icon" size="small" color="danger" class="btn--delete"
-                                                        onclick="salla.cart.deleteItem({{ item.id }}).then(() => document.querySelector('#item-{{ item.id }}').remove())">
+                                                        onclick="salla.cart.deleteItem('{{ item.id }}').then(() => document.querySelector('#item-{{ item.id }}').remove())">
                                                 <i class="sicon-trash-2"></i>
                                             </salla-button>
                                         </div>
