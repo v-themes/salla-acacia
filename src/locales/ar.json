@@ -2,6 +2,14 @@
   "blocks": {
     "header": {
       "cart": "السلة"
+    },
+    "home": {
+      "shop_now": "تسـوق الآن"
+    }
+  },
+  "pages": {
+    "products": {
+      "share": "شــارك"
     }
   },
   "product": {

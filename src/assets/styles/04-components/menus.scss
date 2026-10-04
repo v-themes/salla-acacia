@@ -15,21 +15,6 @@
   .main-menu {
     @apply justify-center items-center mx-6 rounded-[6px] md:min-w-[700px] xl:min-w-[900px] px-3 hidden lg:flex lg:gap-1 flex-wrap  ;
     // background-color: var(--main-color);
-    // li#offers {
-    //   @apply relative;
-      // &::before {
-      //   content: 'الكمية محدودة';
-      //   direction: ltr;
-      //   background-color: rgb(231 54 54);
-      //   @apply absolute -top-[75%] right-[20px] w-[86px] h-[22px]  text-white text-xs font-bold text-center;
-      // }
-      // &::after {
-        // @apply absolute content-[""] w-0 h-0 top-0 right-[16px] rotate-90;
-        // border-style: solid;
-        // border-width: 0 9px 9px;
-        // border-color: transparent transparent transparent rgb(231 54 54);
-      // }
-    // }
 
     li {
       > a {

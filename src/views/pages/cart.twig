@@ -55,6 +55,7 @@
             </div>
         </nav>
         <h1 class="sr-only">{{ trans('blocks.header.cart') }}</h1>
+        <salla-conditional-offer></salla-conditional-offer>
         <div class="flex flex-col items-start lg:flex-row pb-6 lg:pb-20 w-[95%] mx-auto">
             <div class="main-content flex-1 w-full">
                 {% hook 'cart:items.start' %}
@@ -90,10 +91,17 @@
                                                         <span>{{ item.weight_label }}</span>
                                                         </p>
                                                     {% endif %}
-                                                    <div class="items-center gap-2 {{ item.offer?'flex':'hidden' }}">
+                                                    <span class="old-offers items-center gap-2 {{ item.offer and not item.detailed_offers ? 'flex' : 'hidden' }}">
                                                         <i class="sicon-discount-calculator text-gray-400 offer-icon hidden xs:block mt-1.5"></i>
                                                         <p class="text-xs xs:text-sm text-gray-400 offer-name whitespace-nowrap">{{ item.offer.names }}</p>
-                                                    </div>
+                                                    </span>
+                                                    {# Cart Item Offers #}
+                                                    <salla-cart-item-offers
+                                                        quantity="{{ item.quantity }}"
+                                                        item-id="{{ item.id }}"
+                                                        product-price="{{ item.product_price }}"
+                                                        offers="{{ item.detailed_offers|json_encode }}"></salla-cart-item-offers>
+                                                    {# End Cart Item offers #}
                                                 </div>
                                             </div>
 
@@ -116,9 +124,10 @@
                                                 </salla-quantity-input>
                                             {% endif %}
 
+                                            {% set item_total = item.detailed_offers|length > 0 ? item.total_special_price|money : item.total|money %}
                                             <p class="flex flex-col md:flex-row justify-center font-bold whitespace-nowrap">
                                                 <span class="text-sm sm:text-base">{{ trans('pages.cart.total') }}:</span>
-                                                <span class="total-price text-[#00AC30]  mr-1 item-total text-sm sm:text-lg">{{ item.is_available?item.total|money: trans('pages.cart.out_of_stock') }}</span>
+                                                <span class="total-price text-[#00AC30]  mr-1 item-total text-sm sm:text-lg">{{ item.is_available?item_total: trans('pages.cart.out_of_stock') }}</span>
                                             </p>
                                         </div>
 
@@ -186,80 +195,28 @@
                             </div>
                         </div>
                     </div>
-                    {% if loyalty and user.loyalty_points %}
-                        <div class="shadow-default mb-5 rounded-md p-3 xs:p-7 bg-white">
-                            <salla-loyalty customer-points='{{ user.loyalty_points }}'
-                                    prize-points='{{ loyalty.prize.points }}'
-                                    prize-title='{{ loyalty.prize.title }}'
-                            ></salla-loyalty>
+                    {% if loyalty %}
+                        <salla-loyalty-panel
+                            prize-points='{{ loyalty.prize.points }}'
+                            prize-title='{{ loyalty.prize.title }}'>
+                        </salla-loyalty-panel>
+                    {% endif %}
+
+                    {% if store.settings.cart.apply_coupon_enabled %}
+                        <div class="shadow-default bg-white px-5 xs:px-7 rounded-md mt-5 lg:mt-0 mb-5 relative">
+                            {% hook 'cart:coupon.start' %}
+                            <salla-cart-coupons></salla-cart-coupons>
+                            {% hook 'cart:coupon.end' %}
                         </div>
                     {% endif %}
 
-                    <div class="shadow-default bg-white p-5 xs:p-7 rounded-md mb-5 relative transition-height duration-1000">
-                        <h4 class="font-bold text-sm mb-5">{{ trans('pages.cart.summary') }}</h4>
+                    {% hook 'cart:summary-card.start' %}
+                    <salla-cart-summary-card></salla-cart-summary-card>
+                    {% hook 'cart:summary-card.end' %}
+                    {% hook 'cart:summary.end' %}
 
-                        <div class="flex justify-between text-sm mb-5">
-                            <span class="text-gray-400">{{ trans("pages.cart.items_total") }}</span>
-                            <b  class="text-[#00AC30]">{{ cart.sub_total|money }}</b>
-                        </div>
-
-                        <div id="shipping-cost"
-                             class="flex justify-between text-sm mb-5 {{ cart.has_shipping?'':'hidden' }}">
-                            <span class="text-gray-400">{{ trans('pages.cart.shipping_cost') }}</span>
-                            <b class="text-[#00AC30]">{{ cart.real_shipping_cost|money }}</b>
-                        </div>
-
-                        {# todo :: use form #}
-                        {% if store.settings.cart.apply_coupon_enabled %}
-                            <div class="border-t border-gray-200 border-b py-5 mb-5">
-                                <label for="coupon"
-                                       class="block text-sm ">{{ trans('pages.cart.have_coupon') }}</label>
-                                <div class="mt-2.5 relative">
-                                    <input placeholder="{{ trans('pages.cart.coupon_placeholder') }}"
-                                            {{ cart.coupon ? 'disabled':'' }}
-                                           class="rtl:pl-24 ltr:pr-24 form-input" value="{{ cart.coupon }}" id="coupon-input"
-                                           name="coupon"
-                                           type="text">
-
-                                    <salla-button
-                                            class="btn--coupon {{ cart.coupon?'has-coupon btn--danger':'has-not-coupon btn--default' }}"
-                                            loader-position="center" id="coupon-btn">
-                                        <span class="coupon-text">{{ trans('pages.cart.save_coupon') }}</span>
-                                        <i class="sicon-cancel icon text-xl w-8"></i>
-                                    </salla-button>
-                                </div>
-                                <span class="text-xs text-red-700" id="coupon-error"></span>
-                            </div>
-                        {% endif %}
-
-                        <!-- coupon discount -->
-                        <div id="total-discount" class="flex justify-between text-sm {{ cart.discount?'':'hidden' }}">
-                            <span class="text-gray-400 block  h-10">{{ trans('pages.cart.discount') }}</span>
-                            <b>- {{ cart.real_discount|money }}</b>
-                        </div>
-
-                        <div class="flex justify-between text-lg mb-5">
-                            <span class="font-bold text-slate-800 text-xl">{{ trans('pages.cart.final_total') }}</span>
-                            <b class="text-[#00AC30] text-xl" data-cart-total>{{ cart.total|money }}</b>
-                        </div>
-
-                        {% if store.settings.tax.taxable_prices_enabled %}
-                            <div class="flex justify-between text-sm mb-5">
-                                <small class="text-gray-400">
-                                    * {{ trans('pages.cart.prices_taxed') }}
-                                </small>
-                            </div>
-                        {% endif %}
-
-                        <div class="cart-submit-wrap">
-                            {% hook 'cart:submit.start' %}
-                            <salla-button class="proceed-to-checkout-btn" onclick="salla.cart.submit()" loader-position="center" width="wide">
-                                {{ trans('pages.cart.complete_order') }}
-                            </salla-button>
-                            {% hook 'cart:submit.end' %}
-                        </div>
-                        {% hook 'cart:summary.end' %}
-                    </div>
+                    <!-- Tiered Offer Component -->
+                    <salla-tiered-offer></salla-tiered-offer>
                 </div>
             {% endif %}
         </div>

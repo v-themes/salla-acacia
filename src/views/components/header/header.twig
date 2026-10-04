@@ -45,15 +45,7 @@
                     {% component 'header.menu' %}
                     <div class="flex items-center gap-1">
                         {# user #}
-                        {% if user.type=='user' %}
-                        <salla-user-menu avatar-only show-header class="avatar-icon"></salla-user-menu>
-                        {% else %}
-                        <button class="header-btn" onclick="salla.event.dispatch('login::open')">
-                            <div class="login-icon">
-                                <i class=" sicon-user text-2xl"></i>
-                            </div>
-                        </button>
-                        {% endif %}
+                        <salla-user-menu avatar-only show-header show-trigger class="avatar-icon"></salla-user-menu>
                         {# Cart #}
                         <salla-cart-summary>
                             <i class="sicon-cart2"></i>
@@ -80,9 +72,7 @@
     </div>
 </header>
 
-{% if store.scope %}
-<salla-scopes selection="{{ store.scope.display_as == 'popup' ? 'mandatory' : 'optional' }}"></salla-scopes>
-{% endif %}
+
 
 {% block scripts %}
 <script>

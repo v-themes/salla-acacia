@@ -101,7 +101,11 @@
             --color-primary-reverse: {{ theme.color.reverse_text }};
         }
     </style>
+    <script data-cfasync="false">
+        window.can_access_wallet = {{ user.can_access_wallet | json_encode }};
+    </script>
     <script defer src="{{ asset ('product-card.js') }}"></script>
+    <script defer src="{{ 'add-product-toast.js'|asset }}"></script>
     {# tracking services, custom css feature. #}
     {% hook 'head:end' %}
 </head>
@@ -123,6 +127,9 @@
     {% component 'footer.footer' %}
 </div>
 {% hook 'body:end' %}
+{% if theme.settings.get('enable_add_product_toast', true) %}
+    <salla-add-product-toast></salla-add-product-toast>
+{% endif %}
 <script defer src="{{ 'app.js' | asset }}"></script>
 
 {# Twilight Components #}
@@ -131,6 +138,9 @@
 
 {% if user.type=='guest' %}
     <salla-login-modal></salla-login-modal>
+{% endif %}
+{% if store.scope %}
+    <salla-scopes selection="{{ store.scope.display_as == 'popup' ? 'mandatory' : 'optional' }}"></salla-scopes>
 {% endif %}
 {% block scripts %}{% endblock %}
 </body>

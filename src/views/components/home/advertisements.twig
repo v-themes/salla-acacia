@@ -13,7 +13,7 @@
             {% if ad.desc %}
                 <p class="text-gray-100">{{ad.desc}}</p>
             {% else %}
-                <a href="{{ad.link}}" target="_blank" class="text-white md:font-semibold">تسـوق الآن</a>    
+                <a href="{{ad.link}}" target="_blank" class="text-white md:font-semibold">{{ trans('blocks.home.shop_now') }}</a>    
             {% endif %}
         </div>
     {% endfor %}

@@ -107,6 +107,11 @@
             {% hook 'thank-you:items.end' %}
         </div>
 
+        {# Split shipment tracking — self-hides for single-shipment orders #}
+        <salla-order-shipments class="block mb-6 md:mb-8 empty:hidden"></salla-order-shipments>
+
+        <salla-next-order-coupon></salla-next-order-coupon>
+
         <div class="lg:flex rtl:space-x-reverse lg:space-x-8">
             {% if order.email_sent %}
                 <div class="duration-500 hover:shadow-default flex-1 bg-white p-8 rounded-md mb-6 md:mb-10 flex flex-col items-center justify-center">

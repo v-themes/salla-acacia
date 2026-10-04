@@ -23,11 +23,11 @@
         } %}
 
         <salla-products-slider
-        source="selected"
+            source="{{ products.source ?: 'selected' }}"
             slider-config={{ slider_config|json_encode }}
             limit="{{ limit }}"
             {{ autoplay ? 'autoplay' : '' }}
-            source-value="[{{ products|map((product) => product.id)|join(',') }}]"
+            source-value="{{ products.source_value ? products.source_value|json_encode : '[' ~ products|map((product) => product.id)|join(',') ~ ']' }}"
             class="products-slider"
             slider-id="slider-with-bg-{{ position }}"
         ></salla-products-slider>

@@ -2,6 +2,14 @@
   "blocks": {
     "header": {
       "cart": "Cart"
+    },
+    "home": {
+      "shop_now": "Shop now"
+    }
+  },
+  "pages": {
+    "products": {
+      "share": "Share"
     }
   },
   "product": {
