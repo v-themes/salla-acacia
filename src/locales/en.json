@@ -9,7 +9,11 @@
   },
   "pages": {
     "products": {
-      "share": "Share"
+      "share": "Share",
+      "remained": "Remained",
+      "out_of_stock": "Out of stock",
+      "donation_amount": "Donation amount",
+      "starting_price": "Starting from"
     }
   },
   "product": {

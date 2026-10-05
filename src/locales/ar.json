@@ -9,7 +9,11 @@
   },
   "pages": {
     "products": {
-      "share": "شــارك"
+      "share": "شــارك",
+      "remained": "المتبقي",
+      "out_of_stock": "نفدت الكمية",
+      "donation_amount": "مبلغ التبرع",
+      "starting_price": "يبدأ من"
     }
   },
   "product": {
