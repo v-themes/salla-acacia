@@ -50,7 +50,7 @@
                                 {% if discount.show_discounted_price %}
                                     <div class="text-sm text-gray-400">
                                         <span>{{ trans('pages.offer.with_price', {price:''}) }}</span>
-                                        <span class="font-extrabold text-red-400 text-3xl">{{ discount.price|number({'.':'٫'}) }}</span> {{ user.currency.symbol }}
+                                        <span class="font-extrabold text-red-400 text-3xl">{{ discount.price|money }}</span>
                                     </div>
                                 {% endif %}
                             </div>
@@ -72,7 +72,7 @@
                 <span>{{ trans('pages.offer.buy_quantity', {quantity:discount.quantity_text})|number }}</span>
                 {% if discount.show_discounted_price %}
                   <span>{{ trans('pages.offer.with_price', {price:''}) }}</span>
-                  <span class="font-bold text-red-400">{{ discount.price|number({'.':'٫'}) }}</span> {{ user.currency.symbol }}
+                  <span class="font-bold text-red-400">{{ discount.price|money }}</span>
                 {% endif %}
               </div>
               <p class="text-sm">{{ trans('pages.products.with_a_discount') }}

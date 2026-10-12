@@ -23,7 +23,7 @@
                 <div class="flex justify-between items-center self-end lg:self-auto w-full md:pt-3 md:pb-3 -mb-1 md:-mb-2 lg:mb-0">
                     <div class="flex flex-row-reverse lg:flex-row items-center gap-1 sm:gap-2">
                         <div class="contact-tel">
-                            {% component 'footer.contacts' with {is_header:true} %}
+                            <salla-contacts data-testid="store-header-contacts" is-header></salla-contacts>
                         </div>
                         <span class="block sm:mx-1.5 text-[21px]">|</span>
                         <div class="header-buttons flex items-center justify-between lg:justify-center sm:gap-2 lg:gap-0">
@@ -71,35 +71,3 @@
         </div>
     </div>
 </header>
-
-
-
-{% block scripts %}
-<script>
-    const overlay = document.querySelector(".overlay"),
-        searchIcon = document.querySelector(".sicon-search");
-
-    searchIcon.addEventListener("click", () => {
-        overlay.classList.add("show")
-        document.body.style.overflow = "hidden"
-    })
-
-    document.addEventListener("click", (e) => {
-        if (e.target.classList.contains("overlay") || e.target.classList.contains("cancel-icon")) {
-            overlay.classList.remove("show")
-            document.body.style.overflow = "auto"
-        }
-    })
-
-    let navLinks = document.querySelectorAll('#mobile-menu li a');
-    const activeLink = () => {
-        let urlCurrentPage = window.location.href;
-        navLinks.forEach(link => {
-            if (link.href == urlCurrentPage) {
-                link.classList.add('active');
-            }
-        })
-    }
-    window.addEventListener('load', activeLink)
-</script
-{% endblock %}

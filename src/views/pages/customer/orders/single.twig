@@ -189,7 +189,7 @@
                                 </span>
                             {% elseif package.shipping_company.tracing_link %}
                                 <a class="font-bold text-primary hover:opacity-80 flex items-center"
-                                   href="{{ package.shipping_company.tracing_link|raw }}"
+                                   href="{{ package.shipping_company.tracing_link }}"
                                    target="_blank"
                                 >
                                     <span class="sicon-shipping rtl:ml-1 ltr:mr-1"></span>
@@ -447,7 +447,7 @@
         {% if order.rating.store.stars %}
             <section class="bg-white p-5 rounded-md">
                 <h2 class="text-lg font-bold mb-5">{{ trans('pages.rating.rate_the_store') }}</h2>
-                <p class="mb-2">{{ order.rating.store.content|raw }}</p>
+                <p class="mb-2">{{ order.rating.store.content }}</p>
                 <salla-rating-stars value="{{order.rating.store.stars}}"></salla-rating-stars>
             </section>
         {% endif %}
@@ -456,7 +456,7 @@
         {% if order.rating.shipping.stars %}
             <section class="bg-white p-5 rounded-md">
                 <h2 class="text-lg font-bold mb-5">{{ trans('pages.rating.rate_shipping') }}</h2>
-                <p class="mb-2">{{ order.rating.shipping.content|raw }}</p>
+                <p class="mb-2">{{ order.rating.shipping.content }}</p>
                 <salla-rating-stars value="{{order.rating.shipping.stars}}"></salla-rating-stars>
             </section>
         {% endif %}

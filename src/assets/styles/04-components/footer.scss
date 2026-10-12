@@ -3,16 +3,19 @@
   &__inner {
     @apply relative bg-dark py-8 lg:py-12 border-b border-dashed border-b-white/10 text-slate-100;
     .container {
-      .footer-list {
-        a {
-          @apply transition-all duration-200;
+      .footer-list,
+      .s-menu-footer-list {
+        a,
+        .s-menu-footer-item {
+          @apply transition-all duration-200 block mb-5 text-sm leading-none;
           &:hover {
             @apply text-primary scale-[1.1] -translate-x-6;
           }
         }
         @media (max-width: 640px) {
           @apply flex flex-wrap items-center;
-          a {
+          a,
+          .s-menu-footer-item {
             @apply w-[50%];
           }
         }
@@ -39,8 +42,11 @@
     }
   }
   .contact-social {
-    .social-link {
-      i {
+    .social-link,
+    .s-social-link a {
+      i,
+      .s-social-icon svg,
+      .s-social-icon {
         @apply social-icons text-[#000] bg-primary-reverse;
         background-image: -webkit-linear-gradient(
           0,
@@ -53,10 +59,13 @@
       }
     }
   }
-  .contact-links {
-    a {
-      @apply transition duration-300 flex items-center mt-[1rem] gap-[1rem] text-slate-900;
-      i {
+  .contact-links,
+  salla-contacts {
+    a,
+    .s-contacts-item {
+      @apply transition duration-300 flex items-center mt-[1rem] gap-[1rem] text-slate-100;
+      i,
+      .s-contacts-icon {
         @apply social-icons text-primary;
         background-color: var(--color-primary-light);
         background-image: -webkit-linear-gradient(
@@ -68,7 +77,8 @@
       .contact-name {
         @apply transition duration-150 font-normal text-[17px] text-white;
       }
-      span.text-unicode {
+      span.text-unicode,
+      span.unicode {
         @apply inline-block transition duration-150 text-[16px] text-white;
       }
       &:hover {
@@ -76,7 +86,8 @@
         .contact-name {
           @apply text-primary;
         }
-        span.text-unicode {
+        span.text-unicode,
+        span.unicode {
           @apply text-primary scale-110;
         }
       }

@@ -8,6 +8,7 @@ export function registerAppEvents() {
     HandleActiveLink();
     HandleSearchOverlay();
     initVoiceSearch();
+    HandleBackToTop();
 }
 
 export function registerProductPage() {
@@ -20,18 +21,81 @@ function HandleSearchOverlay() {
     const overlay = document.querySelector("header .overlay"),
         searchIcon = document.querySelector("header .sicon-search");
 
-    searchIcon.addEventListener("click", () => {
+    if (!overlay) return;
+
+    const openSearch = () => {
         overlay.classList.add("show");
         document.body.style.overflow = "hidden";
-    });
+        setTimeout(() => {
+            const input = overlay.querySelector(".s-search-input");
+            if (input) input.focus();
+        }, 100);
+    };
+
+    const closeSearch = () => {
+        overlay.classList.remove("show");
+        document.body.style.overflow = "auto";
+    };
+
+    if (searchIcon) {
+        searchIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openSearch();
+        });
+    }
+
+    if (window.salla?.event) {
+        salla.event.on("search::open", () => {
+            openSearch();
+        });
+    }
 
     document.addEventListener("click", (e) => {
-        if (e.target.classList.contains("overlay") || e.target.classList.contains("cancel-icon")) {
-            overlay.classList.remove("show");
-            document.body.style.overflow = "auto";
+        if (e.target.classList.contains("overlay") || e.target.classList.contains("cancel-icon") || e.target.closest(".cancel-icon")) {
+            closeSearch();
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && overlay.classList.contains("show")) {
+            closeSearch();
         }
     });
 }
+
+function HandleBackToTop() {
+    const toTopBtn = document.querySelector(".toTop");
+    if (!toTopBtn) return;
+
+    let lastCallTime = 0;
+    const onScroll = () => {
+        const currentTime = Date.now();
+        if (currentTime - lastCallTime < 100) return;
+        lastCallTime = currentTime;
+
+        toTopBtn.classList.toggle("active", window.scrollY >= 300);
+
+        const pos = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+        const calcHeight = scrollHeight - clientHeight;
+
+        if (calcHeight > 0) {
+            const scrollValue = Math.round((pos * 100) / calcHeight);
+            toTopBtn.style.background = `conic-gradient(var(--color-primary) ${scrollValue}%, var(--color-primary-reverse) ${scrollValue}%)`;
+        }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    toTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+}
+
 function HandleActiveLink() {
     window.addEventListener('load', () => {
         const navLinks = document.querySelectorAll('header #mobile-menu li a'),
@@ -43,10 +107,18 @@ function HandleActiveLink() {
         });
     });
 }
+
 function initVoiceSearch() {
     const voiceSearchBtn = document.querySelector(".voice-search-btn");
+    if (!voiceSearchBtn) return;
+
     voiceSearchBtn.addEventListener("click", () => {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            salla.notify.error(`المتصفح لا يدعم البحث الصوتي`);
+            return;
+        }
+
         const speechRecognition = new SpeechRecognition();
         let isValidResult = false;
         speechRecognition.lang = "ar-SA";
@@ -58,9 +130,11 @@ function initVoiceSearch() {
             const inputEvent = new KeyboardEvent('input');
             const currentResult = event.resultIndex;
             const transcript = event.results[currentResult][0].transcript;
-            searchInput.focus();
-            searchInput.value = transcript;
-            searchInput.dispatchEvent(inputEvent);
+            if (searchInput) {
+                searchInput.focus();
+                searchInput.value = transcript;
+                searchInput.dispatchEvent(inputEvent);
+            }
             voiceSearchBtn.classList.remove("is-recording");
             isValidResult = true;
         };

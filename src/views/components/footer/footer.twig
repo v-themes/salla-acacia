@@ -13,14 +13,14 @@
                             <h3 class="text-primary">{{store.name}}</h3>
                         </a>
                         {% if store.description %}
-                        <p class="max-w-sm leading-6 text-[16px]">{{ store.description|raw }}</p>
+                        <p class="max-w-sm leading-6 text-[16px]">{{ store.description }}</p>
                         {% endif %}
                     </div>
-                    {% component 'footer.contacts' %}
+                    <salla-contacts></salla-contacts>
                 </div>
                 <div class="important-links border-bottom basis-full sm:basis-1/5 lg:basis-1/4 sm:text-center lg:text-right">
                     <div class="flex flex-col justify-between h-full">
-                        {% component 'footer.menu' %}
+                        <salla-menu source="footer"></salla-menu>
                         <div>
                             {% if store.social.maroof %}
                                 <div class="maroof-logo mb-4">
@@ -64,10 +64,10 @@
                     <div class="flex flex-col justify-between h-full gap-4 sm:gap-0">
                         <div class="contact-social">
                             <h3 class="text-primary">{{trans('footer.follow_us.title')}}</h3>
-                            {% component 'footer.social' %}
+                            <salla-social></salla-social>
                         </div>
-                        {% component 'footer.mobile-apps' %}
-                        {% component 'footer.payment-methods' %}
+                        <salla-apps-icons></salla-apps-icons>
+                        <salla-payments></salla-payments>
                     </div>
                 </div>
             </div>
@@ -84,41 +84,3 @@
     </div>
     <span class="hidden bottom-2 rtl:pl-24 ltr:pr-24"></span>
 </footer>
-
-{# Move to top #}
-{% block scripts %}
-<script>
-    const toTopBtn = document.querySelector(".toTop");
-
-    function throttleScrollEvent(func, delay) {
-        let lastCallTime = 0;
-        return function () {
-            const currentTime = Date.now();
-            if (currentTime - lastCallTime >= delay) {
-                lastCallTime = currentTime;
-                func.apply(this, arguments);
-            }
-        }
-    }
-
-    window.onscroll = throttleScrollEvent(() => {
-        toTopBtn.classList.toggle("active", this.scrollY >= 300);
-
-        let pos = document.documentElement.scrollTop,
-            scrollHeight = document.documentElement.scrollHeight,
-            clientHeight = document.documentElement.clientHeight,
-            calcHeight = scrollHeight - clientHeight;
-
-        let scrollValue = Math.round((pos * 100) / calcHeight);
-
-        toTopBtn.style.background = `conic-gradient(var(--color-primary) ${scrollValue}%, var(--color-primary-reverse) ${scrollValue}%)`
-    }, 100);
-
-    toTopBtn.addEventListener("click", () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    })
-</script
-{% endblock %}
