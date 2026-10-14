@@ -44,12 +44,6 @@ function HandleSearchOverlay() {
         });
     }
 
-    if (window.salla?.event) {
-        salla.event.on("search::open", () => {
-            openSearch();
-        });
-    }
-
     document.addEventListener("click", (e) => {
         if (e.target.classList.contains("overlay") || e.target.classList.contains("cancel-icon") || e.target.closest(".cancel-icon")) {
             closeSearch();

@@ -1,4 +1,4 @@
-<footer class="store-footer">
+<footer data-testid="store-footer" class="store-footer">
     <div aria-label="footer" class="store-footer__inner">
         <div class="mb-[2rem] text-center">
             <a class="inline-block" href="{{ store.url }}">
@@ -16,15 +16,22 @@
                         <p class="max-w-sm leading-6 text-[16px]">{{ store.description }}</p>
                         {% endif %}
                     </div>
-                    <salla-contacts></salla-contacts>
+                    <salla-contacts data-testid="store-footer-contacts"></salla-contacts>
                 </div>
                 <div class="important-links border-bottom basis-full sm:basis-1/5 lg:basis-1/4 sm:text-center lg:text-right">
                     <div class="flex flex-col justify-between h-full">
-                        <salla-menu source="footer"></salla-menu>
-                        <div>
+                        <salla-menu data-testid="store-footer-menu" source="footer"></salla-menu>
+                        <div class="mt-4 flex flex-col gap-3">
+                            {# trust badges #}
+                            <salla-trust-badges data-testid="store-footer-trust-badges" {% if theme.settings.get('footer_is_dark') %} dark {% endif %}></salla-trust-badges>
+                            {% if store.settings.certificate %}
+                                <div class="store-certificate text-sm">
+                                    {{ store.settings.certificate }}
+                                </div>
+                            {% endif %}
                             {% if store.social.maroof %}
-                                <div class="maroof-logo mb-4">
-                                    <a href="{{ store.social.maroof }}" class="block mx-auto lg:mx-0 mt-3 w-[130px] h-[60px]" target="_blank" rel="noreferrer">
+                                <div class="maroof-logo mb-2">
+                                    <a href="{{ store.social.maroof }}" class="block mx-auto lg:mx-0 w-[130px] h-[60px]" target="_blank" rel="noreferrer">
                                         <img class="w-full h-full lazy object-contain"
                                             src="{{ 'images/s-empty.png' | asset }}"
                                             data-src="{{ 'images/maroof-footer.png' | cdn }}" alt="maroof">
@@ -48,7 +55,7 @@
                                     </div>
                                 </div>
                                 {% if store.settings.tax.certificate %}
-                                    <salla-modal sub-title-first sub-title="{{ trans('common.elements.tax_number') }}"
+                                    <salla-modal data-testid="store-footer-tax-modal" sub-title-first sub-title="{{ trans('common.elements.tax_number') }}"
                                         modal-title="{{ store.settings.tax.number }}" id="modal-value-tax">
                                         <div class="flex justify-center max-w-full max-h-[500px]">
                                             <img class="w-full object-contain" loading="lazy" src="{{ store.settings.tax.certificate }}"
@@ -64,10 +71,10 @@
                     <div class="flex flex-col justify-between h-full gap-4 sm:gap-0">
                         <div class="contact-social">
                             <h3 class="text-primary">{{trans('footer.follow_us.title')}}</h3>
-                            <salla-social></salla-social>
+                            <salla-social data-testid="store-footer-social"></salla-social>
                         </div>
-                        <salla-apps-icons></salla-apps-icons>
-                        <salla-payments></salla-payments>
+                        <salla-apps-icons data-testid="store-footer-apps"></salla-apps-icons>
+                        <salla-payments data-testid="store-footer-payments"></salla-payments>
                     </div>
                 </div>
             </div>
