@@ -6,8 +6,6 @@ export function registerHomeEvents() {
 
 export function registerAppEvents() {
     HandleActiveLink();
-    HandleSearchOverlay();
-    initVoiceSearch();
     HandleBackToTop();
 }
 
@@ -16,46 +14,7 @@ export function registerProductPage() {
     HandleAccordion();
 }
 
-//? GLOBAL METHODS => Needed on every page
-function HandleSearchOverlay() {
-    const overlay = document.querySelector("header .overlay"),
-        searchIcon = document.querySelector("header .sicon-search");
 
-    if (!overlay) return;
-
-    const openSearch = () => {
-        overlay.classList.add("show");
-        document.body.style.overflow = "hidden";
-        setTimeout(() => {
-            const input = overlay.querySelector(".s-search-input");
-            if (input) input.focus();
-        }, 100);
-    };
-
-    const closeSearch = () => {
-        overlay.classList.remove("show");
-        document.body.style.overflow = "auto";
-    };
-
-    if (searchIcon) {
-        searchIcon.addEventListener("click", (e) => {
-            e.stopPropagation();
-            openSearch();
-        });
-    }
-
-    document.addEventListener("click", (e) => {
-        if (e.target.classList.contains("overlay") || e.target.classList.contains("cancel-icon") || e.target.closest(".cancel-icon")) {
-            closeSearch();
-        }
-    });
-
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && overlay.classList.contains("show")) {
-            closeSearch();
-        }
-    });
-}
 
 function HandleBackToTop() {
     const toTopBtn = document.querySelector(".toTop");
@@ -102,50 +61,7 @@ function HandleActiveLink() {
     });
 }
 
-function initVoiceSearch() {
-    const voiceSearchBtn = document.querySelector(".voice-search-btn");
-    if (!voiceSearchBtn) return;
 
-    voiceSearchBtn.addEventListener("click", () => {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SpeechRecognition) {
-            salla.notify.error(`المتصفح لا يدعم البحث الصوتي`);
-            return;
-        }
-
-        const speechRecognition = new SpeechRecognition();
-        let isValidResult = false;
-        speechRecognition.lang = "ar-SA";
-        speechRecognition.start();
-        voiceSearchBtn.classList.add("is-recording");
-
-        speechRecognition.onresult = (event) => {
-            const searchInput = document.querySelector(".header-search .s-search-input");
-            const inputEvent = new KeyboardEvent('input');
-            const currentResult = event.resultIndex;
-            const transcript = event.results[currentResult][0].transcript;
-            if (searchInput) {
-                searchInput.focus();
-                searchInput.value = transcript;
-                searchInput.dispatchEvent(inputEvent);
-            }
-            voiceSearchBtn.classList.remove("is-recording");
-            isValidResult = true;
-        };
-
-        speechRecognition.onerror = () => {
-            voiceSearchBtn.classList.remove("is-recording");
-            salla.notify.error(`حدث خطأ ما ، يرجى إعادة المحاولة`);
-        };
-
-        speechRecognition.onend = () => {
-            voiceSearchBtn.classList.remove("is-recording");
-            if (!isValidResult) {
-                salla.notify.error(`أنتهت مدة التسجيل ، يرجى المحاولة مرة آخرى و التحدث بصوت أوضح`);
-            }
-        };
-    });
-}
 
 //? HOME PAGE METHODS => Only needed on home page
 function displayCategoryPerfumes() {

@@ -17,8 +17,9 @@ class ProductCard extends HTMLElement {
     this.product = this.product || JSON.parse(this.getAttribute('product'));  // Assuming 'product' attribute is a JSON string
 
     // Append host classes and id
-    this.parentElement.classList.remove('s-products-slider-card'); // overide default class..
-    this.parentElement.classList.add('!h-auto');
+    if (this.parentElement) {
+      this.parentElement.classList.add('!h-auto');
+    }
 
     this.classList.add('s-product-card-entry', 'custom-card');
     this.id = `product_${this.product.id}`;
