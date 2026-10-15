@@ -1,3 +1,18 @@
+// Products slider card spacing
+.s-products-slider-card {
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+  box-sizing: border-box !important;
+}
+
+salla-products-slider {
+  .s-products-slider-card {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    box-sizing: border-box !important;
+  }
+}
+
 salla-slider {
   @apply block;
 
