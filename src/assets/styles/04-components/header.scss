@@ -1,3 +1,37 @@
+/* Top Nav */
+.top-navbar {
+  @apply py-1.5 min-h-[38px] text-xs transition-colors duration-200 border-b border-gray-100 bg-[#f9fafb];
+
+  .contact-tel {
+    @apply flex items-center;
+
+    salla-contacts {
+      @apply flex items-center gap-4 text-xs;
+
+      .s-contacts-topnav-link {
+        @apply inline-flex items-center gap-1.5 text-xs text-gray-600 transition-colors duration-200 hover:text-primary;
+      }
+    }
+  }
+
+  .header-buttons {
+    .btn--rounded-gray {
+      @apply py-1 px-2.5 text-xs font-normal border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 shadow-none;
+    }
+  }
+
+  // Dark mode
+  .topnav-is-dark & {
+    @apply bg-gray-900 border-gray-800 text-gray-300;
+    .contact-tel salla-contacts .s-contacts-topnav-link {
+      @apply text-gray-300 hover:text-white;
+    }
+    .header-buttons .btn--rounded-gray {
+      @apply bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700;
+    }
+  }
+}
+
 .main-nav-container {
   // contacs menu items - pages menu items
   a.topnav-link-item {
@@ -84,21 +118,18 @@
 /* Sticky Header */
 .main-nav-container {
   .navbar-brand-content {
-    @apply block text-center pb-[4px] mb-[10px] lg:mb-[0] border-b-2 border-gray-200;
+    @apply flex items-center shrink-0 border-0 m-0 p-0;
     .navbar-brand {
-      @apply inline-block;
+      @apply inline-flex items-center;
       img {
-        @apply max-h-[4rem] w-[8rem] md:max-h-[5.5rem] object-contain;
+        @apply max-h-[2.5rem] md:max-h-[3rem] w-auto max-w-[7rem] md:max-w-[8.5rem] object-contain;
       }
     }
   }
   &.fixed-pinned {
-    .navbar-brand-content {
-      @apply hidden;
-    }
     .inner {
-      @apply fixed top-0 right-0 left-0 w-full fadeInDown z-30;
-      box-shadow: 0 -3px 15px -3px var(--color-primary);
+      @apply fixed top-0 right-0 left-0 w-full fadeInDown z-30 shadow-md;
+      box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.08);
     }
   }
 }
