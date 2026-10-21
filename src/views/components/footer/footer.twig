@@ -24,11 +24,6 @@
                         <div class="mt-4 flex flex-col gap-3">
                             {# trust badges #}
                             <salla-trust-badges data-testid="store-footer-trust-badges" {% if theme.settings.get('footer_is_dark') %} dark {% endif %}></salla-trust-badges>
-                            {% if store.settings.certificate %}
-                                <div class="store-certificate text-sm">
-                                    {{ store.settings.certificate }}
-                                </div>
-                            {% endif %}
                             {% if store.social.maroof %}
                                 <div class="maroof-logo mb-2">
                                     <a href="{{ store.social.maroof }}" class="block mx-auto lg:mx-0 w-[130px] h-[60px]" target="_blank" rel="noreferrer">
